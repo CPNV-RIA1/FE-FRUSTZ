@@ -46,13 +46,13 @@ How to set up the database? How do you set the sensitive data?
 ## Install JavaScript
 
 1. JavaScript Verification in the Browser
-   Most modern browsers like Chrome, Firefox, Edge, or Safari include a JavaScript engine.
+    - Most modern browsers like Chrome, Firefox, Edge, or Safari include a JavaScript engine.
 2. Access the developer tools:
 
-    - Chrome / Edge: F12 or Ctrl + Shift + I
-    - Firefox: F12 or Ctrl + Shift + K
-    - Safari: Cmd + Option + C (with developer mode enabled)
-    - Type console.log("Hello, JavaScript!"); and press Enter.
+    - Chrome / Edge: `F12` or `Ctrl + Shift + I`
+    - Firefox: `F12` or `Ctrl + Shift + K`
+    - Safari: `Cmd + Option + C` (with developer mode enabled)
+    - Type `console.log("Hello, JavaScript!");` and press **Enter**.
 
 3. [Install Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
 4. [Install Node](https://nodejs.org/fr/download)
