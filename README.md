@@ -11,9 +11,9 @@ Fitness application, available in multiple languages, authentication system...
 List all dependencies and their version needed by the project as :
 
 -   Package manager :
-    -   [NPM](https://docs.npmjs.com/try-the-latest-stable-version-of-npm)
--   [Node JS](https://nodejs.org/en/download)
--   [Git](https://git-scm.com/)
+    -   [NPM (10.9.2)](https://docs.npmjs.com/try-the-latest-stable-version-of-npm)
+-   [Node JS (23.7.0)](https://nodejs.org/en/download)
+-   [Git (2.39.5 (Apple Git-154))](https://git-scm.com/)
 
 #### WebStorm
 
@@ -22,7 +22,7 @@ List all dependencies and their version needed by the project as :
 -   OS supported :
     -   [macOS (Sonoma 14.5)](https://www.iclarified.com/91544/where-to-download-macos-sonoma)
 -   Extensions :
-    -   [Prettier](https://prettier.io/docs/webstorm)
+    -   [Prettier (3.4.2)](https://prettier.io/docs/webstorm)
 
 #### VS Code
 
