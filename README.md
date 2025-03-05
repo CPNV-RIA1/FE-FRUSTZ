@@ -118,7 +118,25 @@ npm run test
 ## Directory structure
 
 ```bash
-
+./Neogym
+├── app
+│   ├── controllers
+│   ├── models
+│   └── views
+│       ├── contact.html
+│       ├── trainer.html
+│       └── why.html
+├── config
+├── database
+├── docs
+├── index.html
+├── public
+│   └── assets
+│       ├── css
+│       ├── images
+│       └── js
+├── README.md
+└── test
 ```
 
 ## Collaborate
