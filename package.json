@@ -1,0 +1,23 @@
+{
+    "name": "neogym",
+    "version": "1.0.0",
+    "description": "neogym-fe-frustz",
+    "main": "index.js",
+    "scripts": {
+        "test": "jest"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/CPNV-RIA1/FE-FRUSTZ"
+    },
+    "keywords": [
+        "node",
+        "tdd"
+    ],
+    "devDependencies": {
+        "jest": "^29.7.0"
+    },
+    "dependencies": {
+        "selenium-webdriver": "^4.29.0"
+    }
+}
