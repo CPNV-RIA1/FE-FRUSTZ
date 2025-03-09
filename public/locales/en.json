@@ -1,0 +1,22 @@
+{
+    "home_page": {
+        "title": "Home",
+        "welcome": "Welcome",
+        "contact_us": "Contact Us"
+    },
+    "why_page": {
+        "title": "Why Us",
+        "welcome_text": "Why Choose Us",
+        "quality_equipment": "Quality Equipments",
+        "nutrition": "Nutrition",
+        "diet_plan": "Healthy Diet Plan",
+        "sport_training": "Sport Training"
+    },
+    "trainer_page": {
+        "title": "Trainers"
+    },
+    "contact_page": {
+        "title": "Contact Us",
+        "welcome_text": "Contact Us"
+    }
+}
