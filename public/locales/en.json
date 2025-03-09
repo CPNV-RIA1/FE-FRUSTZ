@@ -2,7 +2,10 @@
     "home_page": {
         "title": "Home",
         "welcome": "Welcome",
-        "contact_us": "Contact Us"
+        "contact_us": "Contact Us",
+        "healthy_section": {
+            "title": "Healthy Mind, Healthy Body"
+        }
     },
     "why_page": {
         "title": "Why Us",
@@ -13,10 +16,13 @@
         "sport_training": "Sport Training"
     },
     "trainer_page": {
-        "title": "Trainers"
+        "title": "Trainers",
+        "welcome_text": "Nos Coach"
     },
     "contact_page": {
         "title": "Contact Us",
         "welcome_text": "Contact Us"
-    }
+    },
+    "send": "Send",
+    "read_more": "Read More"
 }

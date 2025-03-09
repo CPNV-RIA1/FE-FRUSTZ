@@ -2,7 +2,10 @@
     "home_page": {
         "title": "Accueil",
         "welcome": "Bienvenue",
-        "contact_us": "Contactez Nous"
+        "contact_us": "Contactez Nous",
+        "healthy_section": {
+            "title": "Un Esprit Sain, Un Corps Sain"
+        }
     },
     "why_page": {
         "title": "Pourquoi Nous",
@@ -13,10 +16,13 @@
         "sport_training": "Entraînement Sportif"
     },
     "trainer_page": {
-        "title": "Entraîneurs"
+        "title": "Coach",
+        "welcome_text": "Nos Coach"
     },
     "contact_page": {
         "title": "Contactez Nous",
         "welcome_text": "Contactez Nous"
-    }
+    },
+    "send": "Envoyer",
+    "read_more": "Lire Plus"
 }
