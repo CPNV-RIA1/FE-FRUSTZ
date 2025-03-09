@@ -86,6 +86,8 @@ async function changeNavigatorLanguage() {
     }
 }
 
+// TODO : Implement e2e for Scenario 003 et 004
+
 (async function runTests() {
     await defaultLanguage();
     await changeNavigatorLanguage();
