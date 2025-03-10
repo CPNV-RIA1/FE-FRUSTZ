@@ -12,7 +12,14 @@ classDiagram
     Version: 0.1"
 
     class Translation {
-        +translation(language:string) : void
+        
+        - i18next : Object
+        
+        + loadTranslation(lang) : Promise<Object> 
+        + applyTranslations() : void    
+        + changeLanguage(lang) : void                    
+        + getLanguageFromStorage() : String              
+        + init() : void
     }
 
     class LanguageException { }
