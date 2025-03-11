@@ -1,2 +1,2 @@
-module.exports = class TranslationException extends Error {
+module.exports = class LanguageUnknowException extends Error {
 }

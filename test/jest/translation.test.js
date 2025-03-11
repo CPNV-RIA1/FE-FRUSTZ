@@ -30,9 +30,16 @@ describe("Scénario 002 - Changement de langue du navigateur", () => {
 
 describe("Scenario 003 - Changement de langue du navigateur - exception", () => {
     test("translation_ChangeNavigatorLanguage_ThrowException", () => {
-        //given
-        //when
-        //then
+        // Given :  
+        // La page d'accueil est chargée.  
+        // La langue de l'application correspond à celle du navigateur.  
+                expect(i18nextMock.lng).toBe(navigator.language.split("-")[0]);
+        
+        // When : Le navigateur tente de changer pour une langue inexistante (ex: japonais)  
+                expect(() => i18nextMock.changeLanguage("jp")).toThrow(LanguageUnknowException);
+        
+        // Then : La langue ne doit pas avoir changé  
+                expect(i18nextMock.lng).toBe("fr"); // Toujours "fr" car "jp" est invalide
     });
 });
 
