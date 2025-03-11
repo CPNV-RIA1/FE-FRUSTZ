@@ -27,14 +27,18 @@ describe("Scénario 002 - Changement de langue du navigateur", () => {
     });
 });
 
-test("translation_ChangeNavigatorLanguage_ThrowException", () => {
-    //given
-    //when
-    //then
+describe("Scenario 003 - Changement de langue du navigateur - exception", () => {
+    test("translation_ChangeNavigatorLanguage_ThrowException", () => {
+        //given
+        //when
+        //then
+    });
 });
 
-test("translation_ChangeNavigatorLanguage_PageIsTranslated", () => {
-    //given
-    //when
-    //then
+describe("Scenario 004 - Traduction de la page", () => {
+    test("translation_ChangeNavigatorLanguage_PageIsTranslated", () => {
+        //given
+        //when
+        //then
+    });
 });
