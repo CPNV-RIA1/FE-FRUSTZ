@@ -1,3 +1,5 @@
+const LanguageUnknowException = require("../../app/exceptions/LanguageUnknowException");
+
 const i18nextMock = {
     lng: "en",
     resources: {
@@ -5,10 +7,14 @@ const i18nextMock = {
         fr: { welcome: "Bienvenue", goodbye: "Au revoir" },
         es: { welcome: "Bienvenido", goodbye: "Adiós" },
     },
+    supportedLngs: ["en", "fr", "es"],
     init: jest.fn(() => {
         i18nextMock.lng = navigator.language.split("-")[0] || "en";
     }),
     changeLanguage: jest.fn((lng, callback) => {
+        if (!i18nextMock.supportedLngs.includes(lng)) {
+            throw new LanguageUnknowException();
+        }
         i18nextMock.lng = lng;
         if (callback) callback();
     }),

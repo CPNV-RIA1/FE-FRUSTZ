@@ -45,6 +45,13 @@ describe("Scénario 002 - Changement de langue du navigateur", () => {
 });
 
 describe("Scenario 003 - Changement de langue du navigateur - exception", () => {
+    beforeEach(() => {
+        // Simuler un navigateur en ligne avec une langue donnée
+        global.navigator = { language: "en-EN", onLine: false };
+
+        i18nextMock.init();
+    });
+
     test("translation_ChangeNavigatorLanguage_ThrowException", () => {
         // Given :
         // La page d'accueil est chargée.
@@ -57,7 +64,7 @@ describe("Scenario 003 - Changement de langue du navigateur - exception", () => 
         );
 
         // Then : La langue ne doit pas avoir changé
-        expect(i18nextMock.lng).toBe("fr"); // Toujours "fr" car "jp" est invalide
+        expect(i18nextMock.lng).toBe("en"); // Toujours "en" car "jp" est invalide
     });
 });
 
