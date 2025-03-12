@@ -1,5 +1,7 @@
 const { Builder, By, until } = require("selenium-webdriver");
 
+const APP_URI = "http://127.0.0.1:3000/";
+
 async function defaultLanguage() {
     let driver = await new Builder().forBrowser("chrome").build();
 
@@ -9,7 +11,7 @@ async function defaultLanguage() {
         await driver.sleep(2000);
 
         // When: On charge la page d'accueil
-        await driver.get("http://127.0.0.1:5500/");
+        await driver.get(APP_URI);
 
         // Then: L'application s'affiche
 
@@ -41,7 +43,7 @@ async function changeNavigatorLanguage() {
 
     try {
         // Given: La page d'accueil est chargée et la langue de l'application correspond à celle du navigateur
-        await driver.get("http://127.0.0.1:5500/");
+        await driver.get(APP_URI);
 
         let defaultNavigatorLng = await driver.executeScript(
             "return navigator.language || navigator.userLanguage;"
