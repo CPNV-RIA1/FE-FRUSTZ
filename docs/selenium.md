@@ -17,16 +17,22 @@ This documentation file is for setting up Selenium for this project.
 
 ### 3. Test Selenium
 
-1. Edit the test file according to the browser you'r using :
+1. Edit the test file (`test/selenium/translation_e2e.js`) according to the browser you'r using :
 
-    1. Open the `test/selenium/test.js` file and replace **chrome** with your web browser :
+    1.1 Open the test file and replace **chrome** with your web browser :
 
     ```javascript
     let driver = await new Builder().forBrowser("chrome").build();
     ```
 
+    1.2 Edit also the const for the **URI** that selenium will use to run tests :
+
+    ```javascript
+    const APP_URI = "http://127.0.0.1:3000/";
+    ```
+
 2. Open your terminal and execute this command :
 
 ```bash
-node test/selenium/test.js
+npm run test:selenium
 ```

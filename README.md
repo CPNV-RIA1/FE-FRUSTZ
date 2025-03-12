@@ -115,8 +115,16 @@ npm run dev
 
 #### How to run the tests?
 
+1. JEST
+
 ```bash
 npm run test
+```
+
+2. Selenium e2e
+
+```bash
+npm run test:selenium
 ```
 
 ## Directory structure
