@@ -2,6 +2,7 @@ const LanguageUnknowException = require("../../app/exceptions/LanguageUnknowExce
 
 const i18nextMock = {
     lng: "en",
+    fallbackLng: "en",
     resources: {
         en: { welcome: "Welcome", goodbye: "Goodbye" },
         fr: { welcome: "Bienvenue", goodbye: "Au revoir" },
@@ -9,16 +10,14 @@ const i18nextMock = {
     },
     supportedLngs: ["en", "fr", "es"],
     init: jest.fn(() => {
-        i18nextMock.lng = navigator.language.split("-")[0] || "en";
+        i18nextMock.lng = navigator.language.split("-")[0];
     }),
-    changeLanguage: jest.fn((lng, callback) => {
+    changeLanguage: jest.fn((lng) => {
         if (!i18nextMock.supportedLngs.includes(lng)) {
             throw new LanguageUnknowException();
         }
         i18nextMock.lng = lng;
-        if (callback) callback();
     }),
-    t: jest.fn((key) => i18nextMock.resources[i18nextMock.lng][key] || key),
 };
 
 module.exports = i18nextMock;
