@@ -10,6 +10,7 @@
     "license": "MIT",
     "scripts": {
         "test": "jest",
+        "test:selenium": "node test/selenium/main.js",
         "start": "http-server ./ -p 3000"
     },
     "repository": {
