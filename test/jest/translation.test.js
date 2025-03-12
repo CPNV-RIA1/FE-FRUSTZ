@@ -23,6 +23,13 @@ describe("Scenario 001 - Langue par défaut", () => {
 });
 
 describe("Scénario 002 - Changement de langue du navigateur", () => {
+    beforeEach(() => {
+        // Simuler un navigateur en ligne avec une langue donnée
+        global.navigator = { language: "fr-FR", onLine: false };
+
+        i18nextMock.init();
+    });
+
     test("translation_NominalLanguage_ChangeNavigatorLanguage", () => {
         // Given :
         // La page d'accueil est chargée.
