@@ -13,9 +13,10 @@ function loadTranslation(lang) {
 // Initialisation d'i18next avec des ressources dynamiques
 i18next.init(
     {
-        lng: "en", // Langue par défaut
-        fallbackLng: "en", // Langue par défaut en cas d'erreur de chargement
-        resources: {}, // Les ressources seront ajoutées dynamiquement
+        lng: navigator.language.split("-")[0],
+        fallbackLng: "en",
+        supportedLngs: ["en", "fr"],
+        resources: {},
     },
     function (err, t) {
         // Appliquer la traduction dès le chargement de la page
@@ -42,37 +43,28 @@ function changeLanguage(lang) {
         i18next.changeLanguage(lang, function (err, t) {
             applyTranslations(); // Appliquer les traductions après le changement de langue
         });
-
-        localStorage.setItem("language", lang);
     });
-}
-
-// Fonction pour récupérer la langue depuis localStorage
-function getLanguageFromStorage() {
-    const storedLang = localStorage.getItem("language");
-    return storedLang ? storedLang : "en"; // 'en' est la langue par défaut
 }
 
 // Changement de langue via le sélecteur
 document.addEventListener("DOMContentLoaded", function () {
-    // Charger la langue sauvegardée depuis localStorage
-    const userLang = getLanguageFromStorage();
+    const lng = navigator.language.split("-")[0];
 
     // Charge les traductions pour la langue choisie
-    loadTranslation(userLang).then((translations) => {
-        i18next.addResourceBundle(userLang, "translation", translations);
-        i18next.changeLanguage(userLang, function (err, t) {
+    loadTranslation(lng).then((translations) => {
+        i18next.addResourceBundle(lng, "translation", translations);
+        i18next.changeLanguage(lng, function (err, t) {
             applyTranslations(); // Appliquer les traductions à la page
         });
     });
 
     // Mettre à jour le sélecteur de langue avec la langue actuelle
     const languageSelector = document.getElementById("languageSelector");
-    languageSelector.value = userLang; // Met à jour le sélecteur pour afficher la langue actuelle
+    languageSelector.value = lng;
 
     // Gérer le changement de langue via le sélecteur
     languageSelector.addEventListener("change", function (event) {
         const selectedLang = event.target.value;
-        changeLanguage(selectedLang); // Charger et appliquer la langue choisie
+        changeLanguage(selectedLang);
     });
 });
