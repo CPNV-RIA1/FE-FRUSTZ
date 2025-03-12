@@ -6,7 +6,7 @@ const i18nextMock = require("./i18nextMock");
 describe("Scenario 001 - Langue par défaut", () => {
     beforeEach(() => {
         // Simuler un navigateur en ligne avec une langue donnée
-        global.navigator = { language: "fr-FR", onLine: true };
+        global.navigator = { language: "en-EN", onLine: true };
 
         i18nextMock.init();
     });
@@ -18,14 +18,14 @@ describe("Scenario 001 - Langue par défaut", () => {
         // When : On charge la page d'accueil
 
         // Then : L'application applique la langue du navigateur
-        expect(i18nextMock.lng).toBe("fr");
+        expect(i18nextMock.lng).toBe("en");
     });
 });
 
 describe("Scénario 002 - Changement de langue du navigateur", () => {
     beforeEach(() => {
         // Simuler un navigateur en ligne avec une langue donnée
-        global.navigator = { language: "fr-FR", onLine: false };
+        global.navigator = { language: "en-EN", onLine: false };
 
         i18nextMock.init();
     });
