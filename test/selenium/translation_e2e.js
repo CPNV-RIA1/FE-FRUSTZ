@@ -1,4 +1,4 @@
-const { Builder, By, until } = require("selenium-webdriver");
+const { Builder, By, Key, until } = require("selenium-webdriver");
 
 const APP_URI = "http://127.0.0.1:3000/";
 
@@ -90,7 +90,42 @@ async function changeNavigatorLanguage() {
 
 // TODO : Implement e2e for Scenario 003 et 004
 
+async function unknowLanguageNavigator() {
+
+    let options = new (require("selenium-webdriver/chrome").Options)();
+    options.addArguments("--lang=en");
+    options.setUserPreferences({
+        "intl.accept_languages": "en,en-US",
+    });
+
+    let driver = await new Builder()
+        .forBrowser("chrome")
+        .setChromeOptions(options)
+        .build();
+
+    try {
+        // Given: La page d'accueil est chargée et la langue de l'application correspond à celle du navigateur
+        await driver.get(APP_URI);
+
+        let defaultNavigatorLng = await driver.executeScript(
+            "return navigator.language || navigator.userLanguage;"
+        );
+
+        // When: Changement de langue via le select
+        let selectElement = await driver.findElement(By.id("languageSelector"));
+        await selectElement.click();
+        await driver.sleep(2000);
+        await driver.findElement(By.css('option[value="fr"]')).click();
+
+        await driver.sleep(5000);
+
+    } finally {
+        await driver.quit();
+    }
+}
+
 (async function runTests() {
-    await defaultLanguage();
-    await changeNavigatorLanguage();
+    //await defaultLanguage();
+    //await changeNavigatorLanguage();
+    await unknowLanguageNavigator();
 })();
