@@ -88,14 +88,12 @@ async function changeNavigatorLanguage() {
     }
 }
 
-// TODO : Implement e2e for Scenario 003 et 004
+// TODO : Implement e2e for Scenario 004
 
 async function unknowLanguageNavigator() {
-
     let options = new (require("selenium-webdriver/chrome").Options)();
-    options.addArguments("--lang=en");
     options.setUserPreferences({
-        "intl.accept_languages": "en,en-US",
+        "intl.accept_languages": "bs",
     });
 
     let driver = await new Builder()
@@ -107,18 +105,27 @@ async function unknowLanguageNavigator() {
         // Given: La page d'accueil est chargée et la langue de l'application correspond à celle du navigateur
         await driver.get(APP_URI);
 
-        let defaultNavigatorLng = await driver.executeScript(
-            "return navigator.language || navigator.userLanguage;"
+        // When: Changement de langue via le navigateur
+
+        // Then: Un message apparaît sur l'application pendant 10 secondes, sans gêner l'utilisateur.
+        //       "la langue du navigateur ne peut pas être appliquée"
+
+        let errorMessage = await driver.findElement(By.id("error-message"));
+
+        await driver.sleep(10000);
+
+        let isHidden = await driver.executeScript(
+            "return window.getComputedStyle(arguments[0]).display === 'none';",
+            errorMessage
         );
 
-        // When: Changement de langue via le select
-        let selectElement = await driver.findElement(By.id("languageSelector"));
-        await selectElement.click();
+        if (isHidden) {
+            console.log("✅ La div est cachée !");
+        } else {
+            console.log("❌ La div est visible !");
+        }
+
         await driver.sleep(2000);
-        await driver.findElement(By.css('option[value="fr"]')).click();
-
-        await driver.sleep(5000);
-
     } finally {
         await driver.quit();
     }
