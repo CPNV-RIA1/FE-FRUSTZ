@@ -24,7 +24,7 @@ function showError(message) {
 // Initialisation d'i18next avec des ressources dynamiques
 i18next.init(
     {
-        lng: navigator.language.split("-")[0],
+        lng: "en",
         fallbackLng: "en",
         supportedLngs: ["en", "fr"],
         resources: {},
@@ -47,14 +47,17 @@ function applyTranslations() {
 }
 
 function changeLanguage(lang) {
+    let newLang = lang;
+
     if (!i18next.options.supportedLngs.includes(lang)) {
         showError("La langue du navigateur ne peut pas être appliquée.");
+        newLang = i18next.options.fallbackLng[0];
     }
 
-    loadTranslation(lang).then((translations) => {
+    loadTranslation(newLang).then((translations) => {
         // Ajouter les traductions au niveau des ressources d'i18next
-        i18next.addResourceBundle(lang, "translation", translations);
-        i18next.changeLanguage(lang, function (err, t) {
+        i18next.addResourceBundle(newLang, "translation", translations);
+        i18next.changeLanguage(newLang, function (err, t) {
             applyTranslations(); // Appliquer les traductions après le changement de langue
         });
     });
@@ -69,7 +72,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Mettre à jour le sélecteur de langue avec la langue actuelle
     const languageSelector = document.getElementById("languageSelector");
-    languageSelector.value = lng;
+    if (i18next.options.supportedLngs.includes(lng)) {
+        languageSelector.value = lng;
+    } else {
+        languageSelector.value = i18next.options.fallbackLng[0];
+    }
 
     // Gérer le changement de langue via le sélecteur
     languageSelector.addEventListener("change", function (event) {
