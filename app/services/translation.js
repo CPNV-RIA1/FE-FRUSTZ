@@ -1,12 +1,3 @@
-function getValidLanguage(lang) {
-    if (i18next.options.supportedLngs.includes(lang)) {
-        return i18next.options.supportedLngs.includes(lang);
-    } else {
-        showError("La langue du navigateur ne peut pas être appliquée.");
-        return i18next.options.fallbackLng;
-    }
-}
-
 // Fonction pour charger les fichiers JSON de traduction
 function loadTranslation(lang) {
     return fetch(`/public/locales/${lang}.json`) // Charge le fichier JSON en fonction de la langue
@@ -55,11 +46,12 @@ function applyTranslations() {
     });
 }
 
-// Fonction pour changer de langue et sauvegarder cette langue dans localStorage
 function changeLanguage(lang) {
+    if (!i18next.options.supportedLngs.includes(lang)) {
+        showError("La langue du navigateur ne peut pas être appliquée.");
+    }
 
     loadTranslation(lang).then((translations) => {
-
         // Ajouter les traductions au niveau des ressources d'i18next
         i18next.addResourceBundle(lang, "translation", translations);
         i18next.changeLanguage(lang, function (err, t) {
@@ -72,19 +64,12 @@ function changeLanguage(lang) {
 document.addEventListener("DOMContentLoaded", function () {
     const lng = navigator.language.split("-")[0];
 
-    const validLang = getValidLanguage(lng);
-
     // Charge les traductions pour la langue choisie
-    loadTranslation(validLang).then((translations) => {
-        i18next.addResourceBundle(validLang, "translation", translations);
-        i18next.changeLanguage(validLang, function (err, t) {
-            applyTranslations(); // Appliquer les traductions à la page
-        });
-    });
+    changeLanguage(lng);
 
     // Mettre à jour le sélecteur de langue avec la langue actuelle
     const languageSelector = document.getElementById("languageSelector");
-    languageSelector.value = validLang;
+    languageSelector.value = lng;
 
     // Gérer le changement de langue via le sélecteur
     languageSelector.addEventListener("change", function (event) {
