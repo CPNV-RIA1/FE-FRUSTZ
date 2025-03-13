@@ -1,8 +1,8 @@
 const { Builder, By, Key, until } = require("selenium-webdriver");
 
-const APP_URI = "http://127.0.0.1:3000/";
+const APP_URI = "http://127.0.0.1:5500/";
 
-async function defaultLanguage() {
+async function translation_NominalLanguage_NavigatorLanguageKnow() {
     let driver = await new Builder().forBrowser("chrome").build();
 
     try {
@@ -29,7 +29,7 @@ async function defaultLanguage() {
     }
 }
 
-async function changeNavigatorLanguage() {
+async function translation_NominalLanguage_ChangeNavigatorLanguage() {
     let options = new (require("selenium-webdriver/chrome").Options)();
     options.addArguments("--lang=en");
     options.setUserPreferences({
@@ -88,9 +88,7 @@ async function changeNavigatorLanguage() {
     }
 }
 
-// TODO : Implement e2e for Scenario 004
-
-async function unknowLanguageNavigator() {
+async function translation_ChangeNavigatorLanguage_ThrowException() {
     let options = new (require("selenium-webdriver/chrome").Options)();
     options.setUserPreferences({
         "intl.accept_languages": "bs",
@@ -131,8 +129,44 @@ async function unknowLanguageNavigator() {
     }
 }
 
+async function translation_AutoTranslate_ExcludeCertainElements() {
+    let options = new (require("selenium-webdriver/chrome").Options)();
+    options.setUserPreferences({
+        "intl.accept_languages": "bs",
+    });
+
+    let driver = await new Builder()
+        .forBrowser("chrome")
+        .setChromeOptions(options)
+        .build();
+
+    try {
+        // Given: La page d'accueil est chargée et la langue de l'application correspond à celle du navigateur
+        await driver.get(APP_URI);
+        await driver.sleep(2000);
+
+        // When: Activation d'un outil de traduction (navigateur). Peut-importe la langue.
+
+        // Then: Les noms communs, les noms de marques, les produits ne sont pas traduits
+        let excludedElementText = await driver
+            .findElement(By.id("title"))
+            .getText();
+
+        if (excludedElementText == "NEOGYM") {
+            console.log("✅ Test réussi");
+        } else {
+            console.log("❌ Test échoué");
+        }
+
+        await driver.sleep(2000);
+    } finally {
+        await driver.quit();
+    }
+}
+
 (async function runTests() {
-    //await defaultLanguage();
-    //await changeNavigatorLanguage();
-    await unknowLanguageNavigator();
+    await translation_NominalLanguage_NavigatorLanguageKnow();
+    await translation_NominalLanguage_ChangeNavigatorLanguage();
+    await translation_ChangeNavigatorLanguage_ThrowException();
+    await translation_AutoTranslate_ExcludeCertainElements();
 })();
