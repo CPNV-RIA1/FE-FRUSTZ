@@ -35,6 +35,10 @@ List all dependencies and their version needed by the project as :
     -   [Prettier - Code formatter (v11.0.0)](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
     -   [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer)
 
+### Selenium
+
+Follow [this guide](docs/selenium.md) to setup Selenium for e2e testing on your computer.
+
 ---
 
 ### Configuration
@@ -111,8 +115,16 @@ npm run dev
 
 #### How to run the tests?
 
+1. JEST
+
 ```bash
 npm run test
+```
+
+2. Selenium e2e
+
+```bash
+npm run test:selenium
 ```
 
 ## Directory structure

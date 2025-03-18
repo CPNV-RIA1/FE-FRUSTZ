@@ -1,0 +1,28 @@
+{
+    "home_page": {
+        "title": "Home",
+        "welcome": "Welcome",
+        "contact_us": "Contact Us",
+        "healthy_section": {
+            "title": "Healthy Mind, Healthy Body"
+        }
+    },
+    "why_page": {
+        "title": "Why Us",
+        "welcome_text": "Why Choose Us",
+        "quality_equipment": "Quality Equipments",
+        "nutrition": "Nutrition",
+        "diet_plan": "Healthy Diet Plan",
+        "sport_training": "Sport Training"
+    },
+    "trainer_page": {
+        "title": "Trainers",
+        "welcome_text": "Our Trainers"
+    },
+    "contact_page": {
+        "title": "Contact Us",
+        "welcome_text": "Contact Us"
+    },
+    "send": "Send",
+    "read_more": "Read More"
+}
