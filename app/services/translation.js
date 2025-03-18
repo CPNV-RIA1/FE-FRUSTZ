@@ -1,6 +1,6 @@
 // Fonction pour charger les fichiers JSON de traduction
 function loadTranslation(lang) {
-    return fetch(`/public/locales/${lang}.json`) // Charge le fichier JSON en fonction de la langue
+    return fetch(`./public/locales/${lang}.json`) // Charge le fichier JSON en fonction de la langue
         .then((response) => response.json())
         .catch((err) =>
             console.error(
@@ -66,6 +66,7 @@ function changeLanguage(lang) {
 // Changement de langue via le sélecteur
 document.addEventListener("DOMContentLoaded", function () {
     const lng = navigator.language.split("-")[0];
+    let oldNavigatorLang = navigator.language.split("-")[0];
 
     // Charge les traductions pour la langue choisie
     changeLanguage(lng);
@@ -82,5 +83,17 @@ document.addEventListener("DOMContentLoaded", function () {
     languageSelector.addEventListener("change", function (event) {
         const selectedLang = event.target.value;
         changeLanguage(selectedLang);
+    });
+
+    const observer = new MutationObserver(() => {
+        const newLng = navigator.language.split("-")[0];
+        if (oldNavigatorLang !== newLng) {
+            changeLanguage(newLng);
+        }
+    });
+
+    observer.observe(document.body, {
+        childList: true, // Détecte les ajouts/suppressions d'éléments
+        subtree: true, // Surveille tout le document
     });
 });
