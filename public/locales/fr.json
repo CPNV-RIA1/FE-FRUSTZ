@@ -23,6 +23,9 @@
         "title": "Contactez Nous",
         "welcome_text": "Contactez Nous"
     },
+    "identifier_page": {
+        "title": "S'identifier"
+    },
     "send": "Envoyer",
     "read_more": "Lire Plus"
 }
