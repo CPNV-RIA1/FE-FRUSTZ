@@ -1,4 +1,7 @@
 // Fonction pour charger les fichiers JSON de traduction
+//import i18next from "i18next";
+"use strict";
+
 function loadTranslation(lang) {
     return fetch(`./public/locales/${lang}.json`) // Charge le fichier JSON en fonction de la langue
         .then((response) => response.json())
