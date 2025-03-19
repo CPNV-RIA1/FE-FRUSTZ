@@ -1,0 +1,28 @@
+{
+    "home_page": {
+        "title": "Startseite",
+        "welcome": "Willkommen",
+        "contact_us": "Kontaktieren Sie uns",
+        "healthy_section": {
+            "title": "Ein gesunder Geist, ein gesunder Körper"
+        }
+    },
+    "why_page": {
+        "title": "Warum wir",
+        "welcome_text": "Warum uns wählen",
+        "quality_equipment": "Qualitätsausrüstung",
+        "nutrition": "Ernährung",
+        "diet_plan": "Ernährungsplan",
+        "sport_training": "Sporttraining"
+    },
+    "trainer_page": {
+        "title": "Trainer",
+        "welcome_text": "Unsere Trainer"
+    },
+    "contact_page": {
+        "title": "Kontakt",
+        "welcome_text": "Kontaktieren Sie uns"
+    },
+    "send": "Senden",
+    "read_more": "Mehr lesen"
+}

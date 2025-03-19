@@ -29,7 +29,7 @@ i18next.init(
     {
         lng: "en",
         fallbackLng: "en",
-        supportedLngs: ["en", "fr"],
+        supportedLngs: ["en", "fr", "de"],
         resources: {},
     },
     function (err, t) {

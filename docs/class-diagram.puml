@@ -1,0 +1,43 @@
+@startuml
+
+note "Project: RIA1-FRUSTZ\nTitle: FRUSTZ Class Diagram\nAuthor: SCHNEIDER Julien, DIEPERINK David\nDate: 19/03/25\nVersion: 1.1" as N1
+
+package "Vue" {
+    class Index {}
+}
+
+package "Domaine" {
+    class Translation {
+        +i18next: I18Next
+
+        +loadTranslation(lang: String): Promise<any>
+        +showError(message: String): void
+        +applyTranslations(): void
+        +changeLanguage(lang: String): void
+    }
+
+    class Locale {}
+}
+
+package "API" {
+    class I18Next {
+        +lang: String    
+    }
+}
+
+package "Exceptions" {
+    class LanguageUnknowException {}
+
+    class Error {}
+}
+
+' Relations
+Index --> Translation : "Call"
+Translation -> I18Next : "Use"
+Translation --> Locale : "Load"
+LanguageUnknowException -|> Error : "extends"
+
+' Liaison entre API et Exceptions
+I18Next --> LanguageUnknowException : "Throw"
+
+@enduml
