@@ -1,3 +1,5 @@
+"use strict";
+
 const { Builder, By, Key, until } = require("selenium-webdriver");
 const chrome = require("selenium-webdriver/chrome");
 
@@ -127,43 +129,17 @@ test("translation_ChangeNavigatorLanguage_ThrowException", async () => {
     );
 });
 
-async function translation_AutoTranslate_ExcludeCertainElements() {
-    let options = new (require("selenium-webdriver/chrome").Options)();
-    options.setUserPreferences({
-        "intl.accept_languages": "bs",
-    });
+test("translation_AutoTranslate_ExcludeCertainElements", async () => {
+    // Given: La page d'accueil est chargée et la langue de l'application correspond à celle du navigateur
+    await setupChromeDriver("en-US");
+    await driver.get(APP_URI);
 
-    let driver = await new Builder()
-        .forBrowser("chrome")
-        .setChromeOptions(options)
-        .build();
+    // When: Activation d'un outil de traduction (navigateur). Peut-importe la langue.
 
-    try {
-        // Given: La page d'accueil est chargée et la langue de l'application correspond à celle du navigateur
-        await driver.get(APP_URI);
+    // Then: Les noms communs, les noms de marques, les produits ne sont pas traduits
+    let excludedElementText = await driver
+        .findElement(By.id("no-translate"))
+        .getText();
 
-        // When: Activation d'un outil de traduction (navigateur). Peut-importe la langue.
-
-        // Then: Les noms communs, les noms de marques, les produits ne sont pas traduits
-        let excludedElementText = await driver
-            .findElement(By.id("title"))
-            .getText();
-
-        if (excludedElementText == "NEOGYM") {
-            console.log("✅ Test réussi");
-        } else {
-            console.log("❌ Test échoué");
-        }
-
-        await driver.sleep(2000);
-    } finally {
-        await driver.quit();
-    }
-}
-
-(async function runTests() {
-    // await translation_NominalLanguage_NavigatorLanguageKnow();
-    // await translation_NominalLanguage_ChangeNavigatorLanguage();
-    // await translation_ChangeNavigatorLanguage_ThrowException();
-    // await translation_AutoTranslate_ExcludeCertainElements();
-})();
+    expect(excludedElementText).toEqual("NEOGYM");
+});
