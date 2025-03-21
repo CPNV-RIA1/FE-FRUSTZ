@@ -14,7 +14,7 @@ function loadTranslation(lang) {
 }
 
 function showError(message) {
-    const errorDiv = document.getElementById("error-message");
+    const errorDiv = document.querySelector(".error-message");
     errorDiv.textContent = message;
     errorDiv.style.display = "block";
 
