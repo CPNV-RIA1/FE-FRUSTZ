@@ -24,7 +24,13 @@
         "welcome_text": "Contactez Nous"
     },
     "identifier_page": {
-        "title": "S'identifier"
+        "title": "S'identifier",
+        "description": "Page d'identification !",
+        "email": "Entrez un email",
+        "password": "Entrez un mots de passe",
+        "no-account": "Pas de compte?",
+        "sign-up": "Nouveau compte",
+        "sign-in": "Connexion"
     },
     "send": "Envoyer",
     "read_more": "Lire Plus"

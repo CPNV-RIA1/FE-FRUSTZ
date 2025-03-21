@@ -2,17 +2,17 @@
 <html>
 <head>
     <!-- Basic -->
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <!-- Mobile Metas -->
     <meta
         name="viewport"
         content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
     <!-- Site Metas -->
-    <meta name="keywords" content="" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
 
     <title>Neogym</title>
 
@@ -36,21 +36,39 @@
         rel="stylesheet"
     />
     <!-- Custom styles for this template -->
-    <link href="../../public/assets/css/style.css" rel="stylesheet" />
+    <link href="../../public/assets/css/style.css" rel="stylesheet"/>
     <!-- responsive style -->
-    <link href="../../public/assets/css/responsive.css" rel="stylesheet" />
+    <link href="../../public/assets/css/responsive.css" rel="stylesheet"/>
 
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://unpkg.com/i18next@21.6.3/i18next.min.js"></script>
 </head>
 <body>
+<nav class="navbar navbar-expand-lg custom_nav-container">
+    <select id="languageSelector">
+        <option value="en">EN</option>
+        <option value="fr">FR</option>
+        <option value="de">DE</option>
+    </select>
+    <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+    >
+        <span class="navbar-toggler-icon"></span>
+    </button>
+</nav>
 <div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
     <div class="mx-auto max-w-lg text-center">
-        <h1 id="page-title" class="text-2xl font-bold sm:text-3xl">Get started today!</h1>
+        <h1 id="page-title" class="text-2xl font-bold sm:text-3xl" data-i18n="identifier_page.title"></h1>
 
-        <p class="mt-4 text-gray-500">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Et libero nulla eaque error neque
-            ipsa culpa autem, at itaque nostrum!
-        </p>
+        <p class="mt-4 text-gray-500"
+           data-i18n="identifier_page.description"
+        ></p>
     </div>
 
     <form action="#" class="mx-auto mt-8 mb-0 max-w-md space-y-4">
@@ -58,28 +76,28 @@
             <label for="email" class="sr-only">Email</label>
 
             <div class="relative">
+                <p data-i18n="identifier_page.email"></p>
                 <input
                     type="email"
                     class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-xs"
-                    placeholder="Enter email"
                 />
 
                 <span class="absolute inset-y-0 end-0 grid place-content-center px-4">
-          <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="size-4 text-gray-400"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-          >
-            <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"
-            />
-          </svg>
-        </span>
+                  <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="size-4 text-gray-400"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                  >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"
+                    />
+                  </svg>
+                </span>
             </div>
         </div>
 
@@ -87,51 +105,56 @@
             <label for="password" class="sr-only">Password</label>
 
             <div class="relative">
+                <p data-i18n="identifier_page.password"></p>
                 <input
                     type="password"
                     class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-xs"
-                    placeholder="Enter password"
                 />
 
                 <span class="absolute inset-y-0 end-0 grid place-content-center px-4">
-          <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="size-4 text-gray-400"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-          >
-            <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-            />
-            <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-            />
-          </svg>
-        </span>
+                  <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="size-4 text-gray-400"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                  >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                    />
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                    />
+                  </svg>
+                </span>
             </div>
         </div>
 
         <div class="flex items-center justify-between">
-            <p class="text-sm text-gray-500">
-                No account?
-                <a class="underline" href="#">Sign up</a>
-            </p>
+            <div class="flex flex-row text-sm text-gray-500">
+                <p data-i18n="identifier_page.no-account">
+                </p>
+                <a
+                    data-i18n="identifier_page.sign-up"
+                    class="underline"
+                    href="#"></a>
+            </div>
 
             <button
                 type="submit"
                 class="inline-block rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white"
+                data-i18n="identifier_page.sign-in"
             >
-                Sign in
             </button>
         </div>
     </form>
 </div>
+<script src="/app/services/translation.js"></script>
 </body>
 </html>
