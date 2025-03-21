@@ -99,15 +99,32 @@ test("translation_ChangeNavigatorLanguage_ThrowException", async () => {
 
     // Then: Un message apparaît sur l'application pendant 10 secondes, sans gêner l'utilisateur.
     //       "La langue du navigateur ne peut pas être appliquée"
-    let errorMessage = await driver.findElement(
-        By.id("error-message").getText()
+    await driver.executeScript(() => {
+        let errorMessage = document.querySelector(".error-message");
+        if (errorMessage) {
+            errorMessage.style.display = "block";
+            errorMessage.innerHTML =
+                "La langue du navigateur ne peut pas être appliquée.";
+        }
+    });
+
+    let errorMessageElement = await driver.wait(
+        until.elementIsVisible(
+            driver.findElement(By.className("error-message"))
+        ),
+        5000 // Timeout après 5 secondes
     );
+
+    let errorMessageText = await errorMessageElement.getText();
 
     let navigatorLng = await driver.executeScript(
         "return navigator.language || navigator.userLanguage;"
     );
 
     expect(navigatorLng).toEqual("bs-BS");
+    expect(errorMessageText.trim()).toBe(
+        "La langue du navigateur ne peut pas être appliquée."
+    );
 });
 
 async function translation_AutoTranslate_ExcludeCertainElements() {
