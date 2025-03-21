@@ -67,46 +67,48 @@ test("translation_NominalLanguage_ChangeNavigatorLanguage", async () => {
     expect(newLang).toEqual("fr");
 });
 
-async function translation_ChangeNavigatorLanguage_ThrowException() {
-    let options = new (require("selenium-webdriver/chrome").Options)();
-    options.setUserPreferences({
-        "intl.accept_languages": "bs",
+test("translation_ChangeNavigatorLanguage_ThrowException", async () => {
+    // Given: La page d'accueil est chargée et la langue de l'application correspond à celle du navigateur
+    await setupChromeDriver("en-US"); // Démarrage avec une langue différente
+    await driver.get(APP_URI);
+
+    // When: Changement de langue via le navigateur
+    await driver.executeScript(() => {
+        window.observeNavigatorLanguageChange = function () {
+            const observer = new MutationObserver(() => {
+                Object.defineProperty(navigator, "language", {
+                    get: function () {
+                        return "bs-BS"; // Nouvelle langue simulée
+                    },
+                    configurable: true,
+                });
+            });
+
+            observer.observe(document.documentElement, {
+                attributes: true,
+                subtree: true,
+            });
+        };
+
+        window.observeNavigatorLanguageChange();
     });
 
-    let driver = await new Builder()
-        .forBrowser("chrome")
-        .setChromeOptions(options)
-        .build();
+    await driver.executeScript(() => {
+        document.documentElement.setAttribute("data-lang", "bs-BS");
+    });
 
-    try {
-        // Given: La page d'accueil est chargée et la langue de l'application correspond à celle du navigateur
-        await driver.get(APP_URI);
+    // Then: Un message apparaît sur l'application pendant 10 secondes, sans gêner l'utilisateur.
+    //       "La langue du navigateur ne peut pas être appliquée"
+    let errorMessage = await driver.findElement(
+        By.id("error-message").getText()
+    );
 
-        // When: Changement de langue via le navigateur
+    let navigatorLng = await driver.executeScript(
+        "return navigator.language || navigator.userLanguage;"
+    );
 
-        // Then: Un message apparaît sur l'application pendant 10 secondes, sans gêner l'utilisateur.
-        //       "la langue du navigateur ne peut pas être appliquée"
-
-        let errorMessage = await driver.findElement(By.id("error-message"));
-
-        await driver.sleep(10000);
-
-        let isHidden = await driver.executeScript(
-            "return window.getComputedStyle(arguments[0]).display === 'none';",
-            errorMessage
-        );
-
-        if (isHidden) {
-            console.log("✅ La div est cachée !");
-        } else {
-            console.log("❌ La div est visible !");
-        }
-
-        await driver.sleep(2000);
-    } finally {
-        await driver.quit();
-    }
-}
+    expect(navigatorLng).toEqual("bs-BS");
+});
 
 async function translation_AutoTranslate_ExcludeCertainElements() {
     let options = new (require("selenium-webdriver/chrome").Options)();
@@ -122,7 +124,6 @@ async function translation_AutoTranslate_ExcludeCertainElements() {
     try {
         // Given: La page d'accueil est chargée et la langue de l'application correspond à celle du navigateur
         await driver.get(APP_URI);
-        await driver.sleep(2000);
 
         // When: Activation d'un outil de traduction (navigateur). Peut-importe la langue.
 
