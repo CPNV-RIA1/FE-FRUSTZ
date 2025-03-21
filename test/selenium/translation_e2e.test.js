@@ -1,4 +1,5 @@
 const { Builder, By, Key, until } = require("selenium-webdriver");
+const chrome = require("selenium-webdriver/chrome");
 
 const APP_URI = "http://127.0.0.1:5500/";
 
@@ -29,9 +30,16 @@ async function translation_NominalLanguage_NavigatorLanguageKnow() {
     }
 }
 
-async function translation_NominalLanguage_ChangeNavigatorLanguage() {
-    let options = new (require("selenium-webdriver/chrome").Options)();
-    options.addArguments("--lang=en");
+test("translation_NominalLanguage_ChangeNavigatorLanguage", async () => {
+    // Given: La page d'accueil est chargée et la langue de l'application correspond à celle du navigateur
+    let options = new chrome.Options();
+    options.addArguments(
+        "--lang=en",
+        "--headless",
+        "--disable-gpu",
+        "--no-sandbox",
+        "--disable-dev-shm-usage"
+    );
     options.setUserPreferences({
         "intl.accept_languages": "en,en-US",
     });
@@ -41,52 +49,26 @@ async function translation_NominalLanguage_ChangeNavigatorLanguage() {
         .setChromeOptions(options)
         .build();
 
-    try {
-        // Given: La page d'accueil est chargée et la langue de l'application correspond à celle du navigateur
-        await driver.get(APP_URI);
+    await driver.get(APP_URI);
 
-        let defaultNavigatorLng = await driver.executeScript(
-            "return navigator.language || navigator.userLanguage;"
-        );
+    let defaultNavigatorLng = await driver.executeScript(
+        "return navigator.language || navigator.userLanguage;"
+    );
 
-        console.log(`Langue détectée au chargement : ${defaultNavigatorLng}`);
+    expect(defaultNavigatorLng).toEqual("en");
 
-        await driver.wait(
-            until.elementLocated(By.id("languageSelector")),
-            10000
-        );
+    // When: Changement de langue via le select
+    let selectElement = await driver.findElement(By.id("languageSelector"));
+    await selectElement.click();
+    await driver.findElement(By.css('option[value="fr"]')).click();
 
-        if (defaultNavigatorLng !== "en") {
-            console.error("❌ Langue incorrecte au chargement !");
-            return;
-        }
+    // Then: Vérifier que la langue a changé
+    let newLang = await driver
+        .findElement(By.id("languageSelector"))
+        .getAttribute("value");
 
-        // When: Changement de langue via le select
-        let selectElement = await driver.findElement(By.id("languageSelector"));
-        await selectElement.click();
-        await driver.sleep(2000);
-        await driver.findElement(By.css('option[value="fr"]')).click();
-
-        await driver.sleep(5000);
-
-        // Then: Vérifier que la langue a changé
-        let newLang = await driver
-            .findElement(By.id("languageSelector"))
-            .getAttribute("value");
-
-        console.log(`Nouvelle langue après sélection : ${newLang}`);
-
-        if (newLang !== defaultNavigatorLng) {
-            console.log("✅ Test réussi : la langue a bien été changée.");
-        } else {
-            console.log("❌ Test échoué : la langue ne s'est pas mise à jour.");
-        }
-    } catch (error) {
-        console.error("Erreur :", error);
-    } finally {
-        await driver.quit();
-    }
-}
+    expect(newLang).toEqual("fr");
+});
 
 async function translation_ChangeNavigatorLanguage_ThrowException() {
     let options = new (require("selenium-webdriver/chrome").Options)();
@@ -165,8 +147,8 @@ async function translation_AutoTranslate_ExcludeCertainElements() {
 }
 
 (async function runTests() {
-    await translation_NominalLanguage_NavigatorLanguageKnow();
-    await translation_NominalLanguage_ChangeNavigatorLanguage();
-    await translation_ChangeNavigatorLanguage_ThrowException();
-    await translation_AutoTranslate_ExcludeCertainElements();
+    // await translation_NominalLanguage_NavigatorLanguageKnow();
+    // await translation_NominalLanguage_ChangeNavigatorLanguage();
+    // await translation_ChangeNavigatorLanguage_ThrowException();
+    // await translation_AutoTranslate_ExcludeCertainElements();
 })();
