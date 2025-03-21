@@ -1,4 +1,4 @@
-const { Builder, By, Key, until } = require("selenium-webdriver");
+const {Builder, By, Key, until} = require("selenium-webdriver");
 
 const APP_URI = "http://127.0.0.1:3000/";
 const APP_IDENTIFIER_URI = "http://127.0.0.1:3000/app/views/identifier.html";
@@ -8,8 +8,11 @@ async function identifier_LoadingPage_NavigatorLoadIdentifierPage() {
     options.setUserPreferences({
         "intl.accept_languages": "en",
     });
-    
-    let driver = await new Builder().forBrowser("chrome").build();
+
+    let driver = await new Builder()
+        .forBrowser("chrome")
+        .setChromeOptions(options)
+        .build();
 
     try {
         // Given: 
@@ -28,7 +31,7 @@ async function identifier_LoadingPage_NavigatorLoadIdentifierPage() {
         let pageTitle = await driver.findElement(By.id("page-title"));
         let textPageTitle = await pageTitle.getText();
 
-        if (textPageTitle == "Get started today!") {
+        if (textPageTitle == "Login") {
             console.log("✅ La bonne page a été chargée !");
         } else {
             console.log("❌ Mauvaise page chargée !");
@@ -43,11 +46,15 @@ async function identifier_LoadingPage_NavigatorLoadIdentifierPage() {
 
 async function identifier_NominalLanguage_ChangeNavigatorLanguage() {
     let options = new (require("selenium-webdriver/chrome").Options)();
+    options.addArguments("--lang=en");
     options.setUserPreferences({
-        "intl.accept_languages": "en",
+        "intl.accept_languages": "en,en-US",
     });
 
-    let driver = await new Builder().forBrowser("chrome").build();
+    let driver = await new Builder()
+        .forBrowser("chrome")
+        .setChromeOptions(options)
+        .build();
 
     try {
         // Given: 
@@ -55,10 +62,8 @@ async function identifier_NominalLanguage_ChangeNavigatorLanguage() {
         await driver.get(APP_IDENTIFIER_URI);
         await driver.sleep(2000);
 
-        let defaultNavigatorLng = await driver.executeScript(
-            "return navigator.language || navigator.userLanguage;"
-        );
-
+        let defaultNavigatorLng = await driver.executeScript("return navigator.language || navigator.userLanguage;");
+        console.log(`Langue détectée au chargement : ${defaultNavigatorLng}`);
         // When: Je débute la saisie...
 
         // Then: la possiblité de modifier la langue (FR/ALL/ANG).
@@ -89,8 +94,7 @@ async function identifier_NominalLanguage_ChangeNavigatorLanguage() {
 }
 
 
-
 (async function runTests() {
-    //await identifier_LoadingPage_NavigatorLoadIdentifierPage();
+    await identifier_LoadingPage_NavigatorLoadIdentifierPage();
     await identifier_NominalLanguage_ChangeNavigatorLanguage();
 })();
