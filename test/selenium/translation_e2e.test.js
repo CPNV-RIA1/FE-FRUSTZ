@@ -3,59 +3,56 @@ const chrome = require("selenium-webdriver/chrome");
 
 const APP_URI = "http://127.0.0.1:5500/";
 
-async function translation_NominalLanguage_NavigatorLanguageKnow() {
-    let driver = await new Builder().forBrowser("chrome").build();
+let driver;
 
-    try {
-        // Given: On ouvre une page blanche avec le navigateur en ligne
-        await driver.get("about:blank");
-        await driver.sleep(2000);
-
-        // When: On charge la page d'accueil
-        await driver.get(APP_URI);
-
-        // Then: L'application s'affiche
-
-        // La langue appliquée est celle du navigateur
-        let browserLang = await driver.executeScript(
-            "return navigator.language"
-        );
-        console.log(`Langue détectée par le navigateur : ${browserLang}`);
-
-        await driver.sleep(5000);
-    } catch (error) {
-        console.error("Erreur :", error);
-    } finally {
-        await driver.quit();
-    }
-}
-
-test("translation_NominalLanguage_ChangeNavigatorLanguage", async () => {
-    // Given: La page d'accueil est chargée et la langue de l'application correspond à celle du navigateur
+async function setupChromeDriver(lang) {
     let options = new chrome.Options();
     options.addArguments(
-        "--lang=en",
+        `--lang=${lang}`,
         "--headless",
         "--disable-gpu",
         "--no-sandbox",
         "--disable-dev-shm-usage"
     );
-    options.setUserPreferences({
-        "intl.accept_languages": "en,en-US",
-    });
 
-    let driver = await new Builder()
+    driver = await new Builder()
         .forBrowser("chrome")
         .setChromeOptions(options)
         .build();
+}
 
+afterEach(async () => {
+    if (driver) {
+        await driver.quit();
+    }
+});
+
+test("translation_NominalLanguage_NavigatorLanguageKnow", async () => {
+    await setupChromeDriver("en-US");
+    // Given: On ouvre une page blanche avec le navigateur en ligne
+    await driver.get("about:blank");
+
+    // When: On charge la page d'accueil
+    await driver.get(APP_URI);
+
+    // Then: L'application s'affiche
+
+    // La langue appliquée est celle du navigateur
+    let browserLang = await driver.executeScript("return navigator.language");
+    expect(browserLang).toEqual("en-US");
+});
+
+test("translation_NominalLanguage_ChangeNavigatorLanguage", async () => {
+    // Given: La page d'accueil est chargée et la langue de l'application correspond à celle du navigateur
+
+    await setupChromeDriver("en-US");
     await driver.get(APP_URI);
 
     let defaultNavigatorLng = await driver.executeScript(
         "return navigator.language || navigator.userLanguage;"
     );
 
-    expect(defaultNavigatorLng).toEqual("en");
+    expect(defaultNavigatorLng).toEqual("en-US");
 
     // When: Changement de langue via le select
     let selectElement = await driver.findElement(By.id("languageSelector"));
