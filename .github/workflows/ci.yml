@@ -29,8 +29,8 @@ jobs:
                   chrome-version: "latest"
                   install-chromedriver: true
 
-            - name: Start HTTP Server (background)
-              run: npm start
+            # - name: Start HTTP Server (background)
+            #   run: npm start
 
             - name: Run tests
               run: npm test
