@@ -1,0 +1,31 @@
+{
+    "home_page": {
+        "title": "Accueil",
+        "welcome": "Bienvenue",
+        "contact_us": "Contactez Nous",
+        "healthy_section": {
+            "title": "Un Esprit Sain, Un Corps Sain"
+        }
+    },
+    "why_page": {
+        "title": "Pourquoi Nous",
+        "welcome_text": "Pourquoi Nous Choisir",
+        "quality_equipment": "Équipements de Qualité",
+        "nutrition": "Nutrition",
+        "diet_plan": "Plan Alimentaire",
+        "sport_training": "Entraînement Sportif"
+    },
+    "trainer_page": {
+        "title": "Coach",
+        "welcome_text": "Nos Coach"
+    },
+    "contact_page": {
+        "title": "Contactez Nous",
+        "welcome_text": "Contactez Nous"
+    },
+    "identifier_page": {
+        "title": "S'identifier"
+    },
+    "send": "Envoyer",
+    "read_more": "Lire Plus"
+}

@@ -1,0 +1,36 @@
+{
+    "name": "neogym",
+    "version": "1.0.0",
+    "description": "neogym-fe-frustz",
+    "main": "index.html",
+    "authors": [
+        "david.dieperink@eduvaud.ch",
+        "julien.schneider@eduvaud.ch"
+    ],
+    "license": "MIT",
+    "scripts": {
+        "test": "jest",
+        "test:selenium": "node test/selenium/main.js",
+        "start": "php -S 127.0.0.1:5500"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/CPNV-RIA1/FE-FRUSTZ"
+    },
+    "bugs": {
+        "url": "https://github.com/CPNV-RIA1/FE-FRUSTZ/issues"
+    },
+    "homepage": "https://github.com/CPNV-RIA1/FE-FRUSTZ/#readme",
+    "keywords": [
+        "node",
+        "tdd"
+    ],
+    "devDependencies": {
+        "jest": "^29.7.0"
+    },
+    "dependencies": {
+        "chromedriver": "^134.0.2",
+        "i18next": "^24.2.2",
+        "selenium-webdriver": "^4.29.0"
+    }
+}
