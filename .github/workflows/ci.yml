@@ -30,7 +30,7 @@ jobs:
                   install-chromedriver: true
 
             - name: Start HTTP Server (background)
-              run: npm start
+              run: npm start &
 
             - name: Run tests
               run: npm test
