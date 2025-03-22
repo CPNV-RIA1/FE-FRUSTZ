@@ -11,7 +11,7 @@
     "scripts": {
         "test": "jest",
         "test:selenium": "node test/selenium/main.js",
-        "start": "http-server ./ -p 5500"
+        "start": "php -S 127.0.0.1:5500"
     },
     "repository": {
         "type": "git",
@@ -30,7 +30,6 @@
     },
     "dependencies": {
         "chromedriver": "^134.0.2",
-        "http-server": "^14.1.1",
         "i18next": "^24.2.2",
         "selenium-webdriver": "^4.29.0"
     }
