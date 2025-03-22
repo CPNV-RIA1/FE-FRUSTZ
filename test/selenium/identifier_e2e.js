@@ -1,7 +1,7 @@
 const {Builder, By, Key, until} = require("selenium-webdriver");
 
-const APP_URI = "http://127.0.0.1:3000/";
-const APP_IDENTIFIER_URI = "http://127.0.0.1:3000/app/views/identifier.html";
+const APP_URI = "http://127.0.0.1:5500/";
+const APP_IDENTIFIER_URI = "http://127.0.0.1:5500/app/views/identifier.html";
 
 async function identifier_LoadingPage_NavigatorLoadIdentifierPage() {
     let options = new (require("selenium-webdriver/chrome").Options)();
@@ -20,7 +20,6 @@ async function identifier_LoadingPage_NavigatorLoadIdentifierPage() {
         // Je ne suis pas authentifié.
         await driver.get(APP_URI);
         await driver.sleep(2000);
-
 
         // When: En activant le bouton "login".
         let selectElement = await driver.findElement(By.id("login"));
@@ -50,7 +49,7 @@ async function identifier_NominalLanguage_ChangeNavigatorLanguage() {
     options.setUserPreferences({
         "intl.accept_languages": "en,en-US",
     });
-
+    
     let driver = await new Builder()
         .forBrowser("chrome")
         .setChromeOptions(options)
@@ -93,8 +92,56 @@ async function identifier_NominalLanguage_ChangeNavigatorLanguage() {
     }
 }
 
+async function identifier_NominalValue_OnPasswordEmail() {
+    let options = new (require("selenium-webdriver/chrome").Options)();
+    options.addArguments("--lang=en");
+    options.setUserPreferences({
+        "intl.accept_languages": "en,en-US",
+    });
+    
+    let driver = await new Builder()
+        .forBrowser("chrome")
+        .setChromeOptions(options)
+        .build();
+
+    try {
+        // Given: 
+        // La page de login est affichée.
+        await driver.get(APP_IDENTIFIER_URI);
+        await driver.sleep(2000);
+
+        //When : Je débute la saisie...
+        const emailInput = await driver.findElement(By.css("input[type='email']"));
+        await emailInput.sendKeys("user@example.com");
+
+        const passwordInput = await driver.findElement(By.css("input[type='password']"));
+        await passwordInput.sendKeys("Geeks@123");
+        
+        //Then : le formulaire ne peut être transmit que lorsque la saisie est conforme
+        const button = await driver.wait(
+            until.elementIsVisible(driver.findElement(By.id("submit-button"))),
+            5000,
+            "❌ Le bouton ne s'est pas affiché après remplissage"
+        );
+        
+        await driver.wait(
+            until.elementIsEnabled(button),
+            3000,
+            "❌ Le bouton est visible mais désactivé"
+        );
+
+        console.log("✅ Le bouton est bien visible et activé !");
+        
+    } catch (error) {
+        console.error("Erreur :", error);
+    } finally {
+        await driver.quit();
+    }
+}
+
 
 (async function runTests() {
     await identifier_LoadingPage_NavigatorLoadIdentifierPage();
     await identifier_NominalLanguage_ChangeNavigatorLanguage();
+    await identifier_NominalValue_OnPasswordEmail();
 })();
