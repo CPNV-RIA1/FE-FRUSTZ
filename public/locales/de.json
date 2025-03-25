@@ -23,6 +23,15 @@
         "title": "Kontakt",
         "welcome_text": "Kontaktieren Sie uns"
     },
+    "identifier_page": {
+        "title": "Anmeldung",
+        "description": "Authentifizierungsseite!",
+        "email": "E-Mail eingeben",
+        "password": "Passwort eingeben",
+        "no-account": "Noch kein Konto?",
+        "sign-up": "Registrieren",
+        "sign-in": "Einloggen"
+    },
     "send": "Senden",
     "read_more": "Mehr lesen"
 }

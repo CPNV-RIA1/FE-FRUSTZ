@@ -24,7 +24,13 @@
         "welcome_text": "Contact Us"
     },
     "identifier_page": {
-        "title": "Login"
+        "title": "Login",
+        "description": "Page of authentification !",
+        "email": "Enter email",
+        "password": "Enter password",
+        "no-account": "No account ?",
+        "sign-up": "Sign up",
+        "sign-in": "Sign in"
     },
     "send": "Send",
     "read_more": "Read More"

@@ -3,7 +3,7 @@
 "use strict";
 
 function loadTranslation(lang) {
-    return fetch(`./public/locales/${lang}.json`) // Charge le fichier JSON en fonction de la langue
+    return fetch(`/public/locales/${lang}.json`) // Charge le fichier JSON en fonction de la langue
         .then((response) => response.json())
         .catch((err) =>
             console.error(
