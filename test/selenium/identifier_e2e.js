@@ -173,13 +173,13 @@ async function identifier_ValidationIdentification_OnPasswordEmail() {
         await driver.sleep(2000);
 
         //Then : le formulaire ne peut être transmit que lorsque la saisie est conforme
-        const emailIdentify = await driver.findElement(By.id("identify']"));
+        const emailIdentify = await driver.findElement(By.id("welcome-message"));
         let textEmailIdentify = await emailIdentify.getText();
 
-        if (textEmailIdentify !== "joe@example.com") {
+        if (textEmailIdentify !== "✅Authentifié : joe@example.com") {
             console.log("✅ Test réussi : Vous vous êtes authentifier.");
         } else {
-            console.log("❌ Test échoué : Vous n'êtes authentifier.");
+            console.log("❌ Test échoué : Vous n'êtes authentifier ");
         }
 
     } catch (error) {
@@ -190,8 +190,8 @@ async function identifier_ValidationIdentification_OnPasswordEmail() {
 }
 
 (async function runTests() {
-    //await identifier_LoadingPage_NavigatorLoadIdentifierPage();
-    //await identifier_NominalLanguage_ChangeNavigatorLanguage();
-    //await identifier_NominalValue_OnPasswordEmail();
+    await identifier_LoadingPage_NavigatorLoadIdentifierPage();
+    await identifier_NominalLanguage_ChangeNavigatorLanguage();
+    await identifier_NominalValue_OnPasswordEmail();
     await identifier_ValidationIdentification_OnPasswordEmail();
 })();
