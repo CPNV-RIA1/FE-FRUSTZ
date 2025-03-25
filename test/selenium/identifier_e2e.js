@@ -119,7 +119,7 @@ async function identifier_NominalValue_OnPasswordEmail() {
         
         //Then : le formulaire ne peut être transmit que lorsque la saisie est conforme
         const button = await driver.wait(
-            until.elementIsVisible(driver.findElement(By.id("submit-button"))),
+            until.elementIsVisible(driver.findElement(By.id("submitBtn"))),
             5000,
             "❌ Le bouton ne s'est pas affiché après remplissage"
         );
