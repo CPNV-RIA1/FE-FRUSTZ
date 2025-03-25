@@ -139,9 +139,59 @@ async function identifier_NominalValue_OnPasswordEmail() {
     }
 }
 
+async function identifier_ValidationIdentification_OnPasswordEmail() {
+    let options = new (require("selenium-webdriver/chrome").Options)();
+    options.addArguments("--lang=en");
+    options.setUserPreferences({
+        "intl.accept_languages": "en,en-US",
+    });
+
+    let driver = await new Builder()
+        .forBrowser("chrome")
+        .setChromeOptions(options)
+        .build();
+
+    try {
+        // Given: 
+        // La page de login est affichée.
+        await driver.get(APP_IDENTIFIER_URI);
+        await driver.sleep(2000);
+
+        const emailInput = await driver.findElement(By.css("input[type='email']"));
+        await emailInput.sendKeys("joe@example.com");
+
+        const passwordInput = await driver.findElement(By.css("input[type='password']"));
+        await passwordInput.sendKeys("Geeks@123");
+
+        //When : Je débute la saisie...
+        const button = await driver.wait(
+            until.elementIsVisible(driver.findElement(By.id("submitBtn"))),
+            5000,
+            "❌ Le bouton ne s'est pas affiché après remplissage"
+        );
+        await button.click();
+        await driver.sleep(2000);
+
+        //Then : le formulaire ne peut être transmit que lorsque la saisie est conforme
+        const emailIdentify = await driver.findElement(By.id("welcome-message"));
+        let textEmailIdentify = await emailIdentify.getText();
+
+        if (textEmailIdentify !== "✅Authentifié : joe@example.com") {
+            console.log("✅ Test réussi : Vous vous êtes authentifié.");
+        } else {
+            console.log("❌ Test échoué : Vous n'êtes authentifié. ");
+        }
+
+    } catch (error) {
+        console.error("Erreur :", error);
+    } finally {
+        await driver.quit();
+    }
+}
 
 (async function runTests() {
     await identifier_LoadingPage_NavigatorLoadIdentifierPage();
     await identifier_NominalLanguage_ChangeNavigatorLanguage();
     await identifier_NominalValue_OnPasswordEmail();
+    await identifier_ValidationIdentification_OnPasswordEmail();
 })();
