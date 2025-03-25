@@ -177,9 +177,9 @@ async function identifier_ValidationIdentification_OnPasswordEmail() {
         let textEmailIdentify = await emailIdentify.getText();
 
         if (textEmailIdentify !== "✅Authentifié : joe@example.com") {
-            console.log("✅ Test réussi : Vous vous êtes authentifier.");
+            console.log("✅ Test réussi : Vous vous êtes authentifié.");
         } else {
-            console.log("❌ Test échoué : Vous n'êtes authentifier ");
+            console.log("❌ Test échoué : Vous n'êtes authentifié. ");
         }
 
     } catch (error) {
