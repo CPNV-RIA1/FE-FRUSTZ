@@ -58,3 +58,17 @@ function validateForm() {
 // Écoute des champs en live
 emailInput.addEventListener("input", validateForm);
 passwordInput.addEventListener("input", validateForm);
+
+// Écoute si le formulaire est transmit
+document.getElementById("login-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    // Enregistre les valeurs en localStorage
+    localStorage.setItem("loginAttempt", JSON.stringify({email, password}));
+
+    // Redirige vers l’index
+    window.location.href = "/index.html";
+});
