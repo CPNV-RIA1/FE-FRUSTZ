@@ -125,7 +125,7 @@ test("translation_ChangeNavigatorLanguage_ThrowException", async () => {
 
     expect(navigatorLng).toEqual("bs-BS");
     expect(errorMessageText.trim()).toBe(
-        "La langue du navigateur ne peut pas être appliquée."
+        "The browser language cannot be applied."
     );
 });
 
