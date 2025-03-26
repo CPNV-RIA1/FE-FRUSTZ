@@ -52,55 +52,34 @@ test("identifier_LoadingPage_NavigatorLoadIdentifierPage", async () => {
     expect(textPageTitle).toEqual("Login");
 });
 
-async function identifier_NominalLanguage_ChangeNavigatorLanguage() {
-    let options = new (require("selenium-webdriver/chrome").Options)();
-    options.addArguments("--lang=en");
-    options.setUserPreferences({
-        "intl.accept_languages": "en,en-US",
-    });
+test("identifier_NominalLanguage_ChangeNavigatorLanguage", async () => {
+    await setupChromeDriver("en-US");
 
-    let driver = await new Builder()
-        .forBrowser("chrome")
-        .setChromeOptions(options)
-        .build();
+    // Given:
+    // La page de login est affichée.
+    await driver.get(APP_IDENTIFIER_URI);
 
-    try {
-        // Given:
-        // La page de login est affichée.
-        await driver.get(APP_IDENTIFIER_URI);
-        await driver.sleep(2000);
+    let defaultNavigatorLng = await driver.executeScript(
+        "return navigator.language || navigator.userLanguage;"
+    );
 
-        let defaultNavigatorLng = await driver.executeScript(
-            "return navigator.language || navigator.userLanguage;"
-        );
-        console.log(`Langue détectée au chargement : ${defaultNavigatorLng}`);
-        // When: Je débute la saisie...
+    // When: Je débute la saisie...
 
-        // Then: la possiblité de modifier la langue (FR/ALL/ANG).
-        let selectElement = await driver.findElement(By.id("languageSelector"));
-        await selectElement.click();
-        await driver.sleep(2000);
-        await driver.findElement(By.css('option[value="fr"]')).click();
+    // TODO : Add content in the input
 
-        await driver.sleep(2000);
+    // Then: la possiblité de modifier la langue (FR/ALL/ANG).
+    let selectElement = await driver.findElement(By.id("languageSelector"));
+    await selectElement.click();
+    await driver.findElement(By.css('option[value="fr"]')).click();
 
-        let newLang = await driver
-            .findElement(By.id("languageSelector"))
-            .getAttribute("value");
+    let newLang = await driver
+        .findElement(By.id("languageSelector"))
+        .getAttribute("value");
 
-        console.log(`Nouvelle langue après sélection : ${newLang}`);
+    expect(newLang).not.toEqual(defaultNavigatorLng);
 
-        if (newLang !== defaultNavigatorLng) {
-            console.log("✅ Test réussi : la langue a bien été changée.");
-        } else {
-            console.log("❌ Test échoué : la langue ne s'est pas mise à jour.");
-        }
-    } catch (error) {
-        console.error("Erreur :", error);
-    } finally {
-        await driver.quit();
-    }
-}
+    // TODO : assert that the input content hasn't been changed
+});
 
 async function identifier_NominalValue_OnPasswordEmail() {
     let options = new (require("selenium-webdriver/chrome").Options)();
