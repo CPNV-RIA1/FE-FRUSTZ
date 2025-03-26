@@ -81,55 +81,32 @@ test("identifier_NominalLanguage_ChangeNavigatorLanguage", async () => {
     // TODO : assert that the input content hasn't been changed
 });
 
-async function identifier_NominalValue_OnPasswordEmail() {
-    let options = new (require("selenium-webdriver/chrome").Options)();
-    options.addArguments("--lang=en");
-    options.setUserPreferences({
-        "intl.accept_languages": "en,en-US",
-    });
+test("identifier_SubmitButtonEnabled_WhenPasswordAndEmailEntered", async () => {
+    await setupChromeDriver("en-US");
 
-    let driver = await new Builder()
-        .forBrowser("chrome")
-        .setChromeOptions(options)
-        .build();
+    // Given:
+    // La page de login est affichée.
+    await driver.get(APP_IDENTIFIER_URI);
 
-    try {
-        // Given:
-        // La page de login est affichée.
-        await driver.get(APP_IDENTIFIER_URI);
-        await driver.sleep(2000);
+    const button = await driver.wait(
+        until.elementIsVisible(driver.findElement(By.id("submitBtn")))
+    );
 
-        //When : Je débute la saisie...
-        const emailInput = await driver.findElement(
-            By.css("input[type='email']")
-        );
-        await emailInput.sendKeys("user@example.com");
+    expect(await button.isEnabled()).toBe(false);
 
-        const passwordInput = await driver.findElement(
-            By.css("input[type='password']")
-        );
-        await passwordInput.sendKeys("Geeks@123");
+    //When : Je débute la saisie...
+    const emailInput = await driver.findElement(By.css("input[type='email']"));
+    await emailInput.sendKeys("user@example.com");
 
-        //Then : le formulaire ne peut être transmit que lorsque la saisie est conforme
-        const button = await driver.wait(
-            until.elementIsVisible(driver.findElement(By.id("submitBtn"))),
-            5000,
-            "❌ Le bouton ne s'est pas affiché après remplissage"
-        );
+    const passwordInput = await driver.findElement(
+        By.css("input[type='password']")
+    );
+    await passwordInput.sendKeys("Geeks@123");
 
-        await driver.wait(
-            until.elementIsEnabled(button),
-            3000,
-            "❌ Le bouton est visible mais désactivé"
-        );
+    //Then : le formulaire ne peut être transmit que lorsque la saisie est conforme
 
-        console.log("✅ Le bouton est bien visible et activé !");
-    } catch (error) {
-        console.error("Erreur :", error);
-    } finally {
-        await driver.quit();
-    }
-}
+    expect(await button.isEnabled()).toBe(true);
+});
 
 async function identifier_ValidationIdentification_OnPasswordEmail() {
     let options = new (require("selenium-webdriver/chrome").Options)();
