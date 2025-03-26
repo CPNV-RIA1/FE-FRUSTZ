@@ -2,8 +2,12 @@
 
 const translationsCache = {};
 
-async function preloadTranslations(langs) {
-    const promises = langs.map((lang) =>
+async function preloadTranslations() {
+    const supportedLngs = i18next.options.supportedLngs.filter(
+        (lng) => lng !== "cimode"
+    );
+
+    const promises = supportedLngs.map((lang) =>
         fetch(`./public/locales/${lang}.json`)
             .then((response) => response.json())
             .then((data) => {
@@ -22,9 +26,14 @@ function getTranslation(lang) {
     return translationsCache[lang] || {};
 }
 
-function showError(message) {
+function showError(lang) {
     const errorDiv = document.querySelector(".error-message");
-    errorDiv.textContent = message;
+    errorDiv.textContent =
+        translationsCache[lang] && translationsCache[lang]["translation_error"]
+            ? translationsCache[lang]["translation_error"]
+            : translationsCache[i18next.options.fallbackLng][
+                  "translation_error"
+              ];
     errorDiv.style.display = "block";
 
     // Cache l'erreur après 10 secondes
@@ -56,7 +65,7 @@ function applyTranslations() {
 
 function changeLanguage(lang) {
     if (!i18next.options.supportedLngs.includes(lang)) {
-        showError("La langue du navigateur ne peut pas être appliquée.");
+        showError(lang);
         lang = i18next.options.fallbackLng;
     }
 
@@ -68,7 +77,7 @@ function changeLanguage(lang) {
             applyTranslations();
         });
     } else {
-        showError("Les traductions ne sont pas disponibles.");
+        showError(lang);
     }
 }
 
@@ -76,7 +85,7 @@ function changeLanguage(lang) {
 document.addEventListener("DOMContentLoaded", async function () {
     const lng = navigator.language.split("-")[0];
 
-    await preloadTranslations(i18next.options.supportedLngs);
+    await preloadTranslations();
     changeLanguage(lng);
 
     const languageSelector = document.getElementById("languageSelector");
