@@ -33,5 +33,6 @@
         "sign-in": "Connexion"
     },
     "send": "Envoyer",
-    "read_more": "Lire Plus"
+    "read_more": "Lire Plus",
+    "translation_error": "La langue du navigateur ne peut pas être appliquée."
 }

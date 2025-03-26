@@ -33,5 +33,6 @@
         "sign-in": "Sign in"
     },
     "send": "Send",
-    "read_more": "Read More"
+    "read_more": "Read More",
+    "translation_error": "The browser language cannot be applied."
 }
