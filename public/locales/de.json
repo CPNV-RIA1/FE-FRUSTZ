@@ -34,5 +34,6 @@
     },
     "send": "Senden",
     "read_more": "Mehr lesen",
-    "translation_error": "Die Sprache des Browsers kann nicht angewendet werden."
+    "translation_error": "Die Sprache des Browsers kann nicht angewendet werden.",
+    "not-logged-in": "Sie sind nicht authentifiziert."
 }
