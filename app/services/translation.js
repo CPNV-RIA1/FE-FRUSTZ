@@ -1,21 +1,39 @@
-// Fonction pour charger les fichiers JSON de traduction
-//import i18next from "i18next";
 "use strict";
 
-function loadTranslation(lang) {
-    return fetch(`/public/locales/${lang}.json`) // Charge le fichier JSON en fonction de la langue
-        .then((response) => response.json())
-        .catch((err) =>
-            console.error(
-                "Erreur de chargement des fichiers de traduction",
-                err
+const translationsCache = {};
+
+async function preloadTranslations() {
+    const supportedLngs = i18next.options.supportedLngs.filter(
+        (lng) => lng !== "cimode"
+    );
+
+    const promises = supportedLngs.map((lang) =>
+        fetch(`./public/locales/${lang}.json`)
+            .then((response) => response.json())
+            .then((data) => {
+                translationsCache[lang] = data;
+            })
+            .catch((err) =>
+                console.error(`Erreur de chargement de la langue ${lang}`, err)
             )
-        );
+    );
+
+    await Promise.all(promises);
+    console.log("Toutes les traductions ont été chargées en cache.");
 }
 
-function showError(message) {
+function getTranslation(lang) {
+    return translationsCache[lang] || {};
+}
+
+function showError(lang) {
     const errorDiv = document.querySelector(".error-message");
-    errorDiv.textContent = message;
+    errorDiv.textContent =
+        translationsCache[lang] && translationsCache[lang]["translation_error"]
+            ? translationsCache[lang]["translation_error"]
+            : translationsCache[i18next.options.fallbackLng][
+                  "translation_error"
+              ];
     errorDiv.style.display = "block";
 
     // Cache l'erreur après 10 secondes
@@ -24,7 +42,6 @@ function showError(message) {
     }, 10000);
 }
 
-// Initialisation d'i18next avec des ressources dynamiques
 i18next.init(
     {
         lng: "en",
@@ -33,14 +50,11 @@ i18next.init(
         resources: {},
     },
     function (err, t) {
-        // Appliquer la traduction dès le chargement de la page
         applyTranslations();
     }
 );
 
-// Fonction pour appliquer les traductions dynamiquement
 function applyTranslations() {
-    // Sélectionne tous les éléments qui ont un attribut 'data-i18n'
     const elements = document.querySelectorAll("[data-i18n]");
 
     elements.forEach((element) => {
@@ -50,53 +64,46 @@ function applyTranslations() {
 }
 
 function changeLanguage(lang) {
-    let newLang = lang;
-
     if (!i18next.options.supportedLngs.includes(lang)) {
-        showError("La langue du navigateur ne peut pas être appliquée.");
-        newLang = i18next.options.fallbackLng[0];
+        showError(lang);
+        lang = i18next.options.fallbackLng;
     }
 
-    loadTranslation(newLang).then((translations) => {
-        // Ajouter les traductions au niveau des ressources d'i18next
-        i18next.addResourceBundle(newLang, "translation", translations);
-        i18next.changeLanguage(newLang, function (err, t) {
-            applyTranslations(); // Appliquer les traductions après le changement de langue
+    const translations = getTranslation(lang);
+
+    if (Object.keys(translations).length > 0) {
+        i18next.addResourceBundle(lang, "translation", translations);
+        i18next.changeLanguage(lang, function (err, t) {
+            applyTranslations();
         });
-    });
+    } else {
+        showError(lang);
+    }
 }
 
-// Changement de langue via le sélecteur
-document.addEventListener("DOMContentLoaded", function () {
+// Exécuter au chargement de la page
+document.addEventListener("DOMContentLoaded", async function () {
     const lng = navigator.language.split("-")[0];
-    let oldNavigatorLang = navigator.language.split("-")[0];
 
-    // Charge les traductions pour la langue choisie
+    await preloadTranslations();
     changeLanguage(lng);
 
-    // Mettre à jour le sélecteur de langue avec la langue actuelle
     const languageSelector = document.getElementById("languageSelector");
-    if (i18next.options.supportedLngs.includes(lng)) {
-        languageSelector.value = lng;
-    } else {
-        languageSelector.value = i18next.options.fallbackLng[0];
-    }
-
-    // Gérer le changement de langue via le sélecteur
+    languageSelector.value = i18next.options.supportedLngs.includes(lng)
+        ? lng
+        : i18next.options.fallbackLng;
     languageSelector.addEventListener("change", function (event) {
-        const selectedLang = event.target.value;
-        changeLanguage(selectedLang);
+        changeLanguage(event.target.value);
     });
 
+    let oldNavigatorLang = lng;
     const observer = new MutationObserver(() => {
         const newLng = navigator.language.split("-")[0];
         if (oldNavigatorLang !== newLng) {
+            oldNavigatorLang = newLng;
             changeLanguage(newLng);
         }
     });
 
-    observer.observe(document.body, {
-        childList: true, // Détecte les ajouts/suppressions d'éléments
-        subtree: true, // Surveille tout le document
-    });
+    observer.observe(document.body, { childList: true, subtree: true });
 });
