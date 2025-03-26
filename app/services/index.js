@@ -6,7 +6,7 @@ const users = [
 // Vérifie s’il y a une tentative de login dans le localStorage
 const loginAttempt = JSON.parse(localStorage.getItem("loginAttempt"));
 
-if (loginAttempt) {
+function userIdentifier(loginAttempt) {
     const { email, password } = loginAttempt;
 
     // Recherche dans la "BD"
@@ -17,6 +17,7 @@ if (loginAttempt) {
     if (user) {
         document.getElementById("welcome-message").textContent =
             `✅ Authentifié : ${user.email}`;
+            userIdentify = true;
     } else {
         document.getElementById("welcome-message").textContent =
             "❌ Utilisateur inconnu ou mot de passe incorrect.";
@@ -24,4 +25,10 @@ if (loginAttempt) {
 
     // Optionnel : nettoyer après usage
     localStorage.removeItem("loginAttempt");
+    return user;
+}
+module.exports = { userIdentifier };
+
+if (loginAttempt) {
+    userIdentifier(loginAttempt);
 }
