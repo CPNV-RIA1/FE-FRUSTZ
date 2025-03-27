@@ -4,7 +4,7 @@ const users = [{ email: "joe@example.com", password: "Geeks@123" }];
 // Vérifie s’il y a une tentative de login dans le localStorage
 const loginAttempt = JSON.parse(localStorage.getItem("loginAttempt"));
 
-if (loginAttempt) {
+function userIdentifier(loginAttempt) {
     const { email, password } = loginAttempt;
 
     // Recherche dans la "BD"
@@ -23,4 +23,10 @@ if (loginAttempt) {
 
     // Optionnel : nettoyer après usage
     localStorage.removeItem("loginAttempt");
+    return user;
+}
+module.exports = { userIdentifier };
+
+if (loginAttempt) {
+    userIdentifier(loginAttempt);
 }
