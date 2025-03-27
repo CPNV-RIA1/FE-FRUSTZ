@@ -1,7 +1,5 @@
 // Simule ta "base de données"
-const users = [
-    { email: "joe@example.com", password: "Geeks@123" }
-];
+const users = [{ email: "joe@example.com", password: "Geeks@123" }];
 
 // Vérifie s’il y a une tentative de login dans le localStorage
 const loginAttempt = JSON.parse(localStorage.getItem("loginAttempt"));
@@ -14,13 +12,13 @@ function userIdentifier(loginAttempt) {
         (u) => u.email === email && u.password === password
     );
 
+    const welcomeMessage = document.getElementById("welcome-message");
+
     if (user) {
-        document.getElementById("welcome-message").textContent =
-            `✅ Authentifié : ${user.email}`;
-            userIdentify = true;
+        welcomeMessage.setAttribute("data-i18n", "logged-in");
+        welcomeMessage.setAttribute("dynamic-data", user.email);
     } else {
-        document.getElementById("welcome-message").textContent =
-            "❌ Utilisateur inconnu ou mot de passe incorrect.";
+        welcomeMessage.setAttribute("data-i18n", "authentication-error");
     }
 
     // Optionnel : nettoyer après usage

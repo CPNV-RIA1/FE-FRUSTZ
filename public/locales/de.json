@@ -33,5 +33,9 @@
         "sign-in": "Einloggen"
     },
     "send": "Senden",
-    "read_more": "Mehr lesen"
+    "read_more": "Mehr lesen",
+    "translation_error": "Die Sprache des Browsers kann nicht angewendet werden.",
+    "not-logged-in": "Sie sind nicht authentifiziert.",
+    "logged-in": "Sie sind authentifiziert! {{email}}",
+    "authentication-error": "Bei der Authentifizierung ist ein Fehler aufgetreten."
 }
