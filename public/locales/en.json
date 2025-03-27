@@ -35,5 +35,6 @@
     "send": "Send",
     "read_more": "Read More",
     "translation_error": "The browser language cannot be applied.",
-    "not-logged-in": "You are not logged in."
+    "not-logged-in": "You are not logged in.",
+    "logged-in": "You're authenticated!"
 }
