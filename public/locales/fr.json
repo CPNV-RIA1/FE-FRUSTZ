@@ -36,5 +36,6 @@
     "read_more": "Lire Plus",
     "translation_error": "La langue du navigateur ne peut pas être appliquée.",
     "not-logged-in": "Vous n'êtes pas authentifier.",
-    "logged-in": "Vous êtes authentifié !"
+    "logged-in": "Vous êtes authentifié ! {{email}}",
+    "authentication-error": "Une erreur est survenue lors de l'authentification."
 }
