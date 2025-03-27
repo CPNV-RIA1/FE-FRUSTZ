@@ -8,7 +8,7 @@ async function preloadTranslations() {
     );
 
     const promises = supportedLngs.map((lang) =>
-        fetch(`./public/locales/${lang}.json`)
+        fetch(`/public/locales/${lang}.json`)
             .then((response) => response.json())
             .then((data) => {
                 translationsCache[lang] = data;
@@ -59,7 +59,13 @@ function applyTranslations() {
 
     elements.forEach((element) => {
         const translationKey = element.getAttribute("data-i18n");
-        element.textContent = i18next.t(translationKey);
+
+        const dynamicData = {};
+        if (element.hasAttribute("dynamic-data")) {
+            dynamicData.email = element.getAttribute("dynamic-data");
+        }
+
+        element.textContent = i18next.t(translationKey, dynamicData);
     });
 }
 
