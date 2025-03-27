@@ -108,64 +108,36 @@ test("identifier_SubmitButtonEnabled_WhenPasswordAndEmailEntered", async () => {
     expect(await button.isEnabled()).toBe(true);
 });
 
-async function identifier_ValidationIdentification_OnPasswordEmail() {
-    let options = new (require("selenium-webdriver/chrome").Options)();
-    options.addArguments("--lang=en");
-    options.setUserPreferences({
-        "intl.accept_languages": "en,en-US",
-    });
+test("identifier_FailedIdentification_OnSubmitLoginForm", async () => {
+    await setupChromeDriver("en-US");
 
-    let driver = await new Builder()
-        .forBrowser("chrome")
-        .setChromeOptions(options)
-        .build();
+    // Given:
+    // La page de login est affichée.
+    await driver.get(APP_IDENTIFIER_URI);
 
-    try {
-        // Given:
-        // La page de login est affichée.
-        await driver.get(APP_IDENTIFIER_URI);
-        await driver.sleep(2000);
+    const button = await driver.wait(
+        until.elementIsVisible(driver.findElement(By.id("submitBtn")))
+    );
 
-        const emailInput = await driver.findElement(
-            By.css("input[type='email']")
-        );
-        await emailInput.sendKeys("joe@example.com");
+    expect(await button.isEnabled()).toBe(false);
 
-        const passwordInput = await driver.findElement(
-            By.css("input[type='password']")
-        );
-        await passwordInput.sendKeys("Geeks@123");
+    //When : Je débute la saisie...
+    const emailInput = await driver.findElement(By.css("input[type='email']"));
+    await emailInput.sendKeys("user@example.com");
 
-        //When : Je débute la saisie...
-        const button = await driver.wait(
-            until.elementIsVisible(driver.findElement(By.id("submitBtn"))),
-            5000,
-            "❌ Le bouton ne s'est pas affiché après remplissage"
-        );
-        await button.click();
-        await driver.sleep(2000);
+    const passwordInput = await driver.findElement(
+        By.css("input[type='password']")
+    );
+    await passwordInput.sendKeys("Geeks@123");
 
-        //Then : le formulaire ne peut être transmit que lorsque la saisie est conforme
-        const emailIdentify = await driver.findElement(
-            By.id("welcome-message")
-        );
-        let textEmailIdentify = await emailIdentify.getText();
+    expect(await button.isEnabled()).toBe(true);
+    await button.click();
 
-        if (textEmailIdentify !== "✅Authentifié : joe@example.com") {
-            console.log("✅ Test réussi : Vous vous êtes authentifié.");
-        } else {
-            console.log("❌ Test échoué : Vous n'êtes authentifié. ");
-        }
-    } catch (error) {
-        console.error("Erreur :", error);
-    } finally {
-        await driver.quit();
-    }
-}
+    //Then : le formulaire ne peut être transmit que lorsque la saisie est conforme
+    const emailIdentify = await driver.findElement(By.id("welcome-message"));
+    let textEmailIdentify = await emailIdentify.getText();
 
-(async function runTests() {
-    // await identifier_LoadingPage_NavigatorLoadIdentifierPage();
-    // await identifier_NominalLanguage_ChangeNavigatorLanguage();
-    // await identifier_NominalValue_OnPasswordEmail();
-    // await identifier_ValidationIdentification_OnPasswordEmail();
-})();
+    const expectedResult = "An error occurred during authentication.";
+
+    expect(textEmailIdentify).toBe(expectedResult);
+});
