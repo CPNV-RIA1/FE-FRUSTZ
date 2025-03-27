@@ -43,78 +43,137 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <script src="https://unpkg.com/i18next@21.6.3/i18next.min.js"></script>
 </head>
-<body>
-<nav class="navbar navbar-expand-lg custom_nav-container">
-    <select id="languageSelector">
-        <option value="en">EN</option>
-        <option value="fr">FR</option>
-        <option value="de">DE</option>
-    </select>
-    <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-    >
-        <span class="navbar-toggler-icon"></span>
-    </button>
-</nav>
-<div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
-    <div class="mx-auto max-w-lg text-center">
-        <h1 id="page-title" class="text-2xl font-bold sm:text-3xl" data-i18n="identifier_page.title"></h1>
+<body class="bg-[url('/public/assets/images/hero-bg.jpg')] bg-cover bg-center bg-no-repeat">
+<header class="mx-10 header_section">
+    <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg custom_nav-container">
+            <a class="navbar-brand" href="../../index.html">
+                <span> Neogym </span>
+            </a>
+            <select class="bg-white" id="languageSelector">
+                <option value="en">EN</option>
+                <option value="fr">FR</option>
+                <option value="de">DE</option>
+            </select>
+            <button 
+                class="navbar-toggler" 
+                type="button" 
+                data-toggle="collapse"
+                data-target="#navbarSupportedContent" 
+                aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+                
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-        <p class="mt-4 text-gray-500"
-           data-i18n="identifier_page.description"
-        ></p>
-    </div>
 
-    <form id="login-form" class="mx-auto mt-8 mb-0 max-w-md space-y-4">
-        <div>
-            <label for="email" class="sr-only">Email</label>
-
-            <div class="relative">
-                <p data-i18n="identifier_page.email"></p>
-                <input
-                    id="email"
-                    type="email"
-                    class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-xs"
-                />
-
-                <span class="absolute inset-y-0 end-0 grid place-content-center px-4">
-                  <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      class="size-4 text-gray-400"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                  >
-                    <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"
-                    />
-                  </svg>
-                </span>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div
+                    class="d-flex ml-auto flex-column flex-lg-row align-items-center"
+                >
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a
+                                class="nav-link"
+                                href="../../index.html"
+                            >Home
+                                <span class="sr-only"
+                                >(current)</span
+                                ></a
+                            >
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="why.html">
+                                Why us
+                            </a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="trainer.html">
+                                Trainers</a
+                            >
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact.html">
+                                Contact Us</a
+                            >
+                        </li>
+                    </ul>
+                    <div class="user_option">
+                        <form
+                            class="form-inline my-2 my-lg-0 ml-0 ml-lg-4 mb-3 mb-lg-0"
+                        >
+                            <button
+                                class="btn my-2 my-sm-0 nav_search-btn"
+                                type="submit"
+                            ></button>
+                        </form>
+                    </div>
+                </div>
             </div>
-            <div id="email-warning" class="warning"></div><br />
+        </nav>
+    </div>
+        
+
+</header>
+
+<main class="bg-[#2b2f5d80] min-h-screen text-[#FFFFFF]">
+    <div class="mx-auto max-w-screen-2xl px-4 py-16 sm:px-6 lg:px-8">
+        <div class="mx-auto max-w-lg text-center">
+            <h1 id="page-title" class="text-2xl font-bold sm:text-3xl" data-i18n="identifier_page.title"></h1>
+
+            <p class="mt-4 text-white-500"
+               data-i18n="identifier_page.description"
+            ></p>
         </div>
 
-        <div>
-            <label for="password" class="sr-only">Password</label>
+        <form id="login-form" class="mx-auto mt-8 mb-0 max-w-md space-y-4">
+            <div>
+                <label for="email" class="sr-only">Email</label>
 
-            <div class="relative">
-                <p data-i18n="identifier_page.password"></p>
-                <input
-                    id="password"
-                    type="password"
-                    class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-xs"
-                />
+                <div class="relative">
+                    <p data-i18n="identifier_page.email"></p>
+                    <div class="bg-white rounded-lg">
+                        <input
+                            id="email"
+                            type="email"
+                            class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-xs text-black"
+                        />
 
-                <span class="absolute inset-y-0 end-0 grid place-content-center px-4">
+                        <span class="absolute inset-y-0 end-0 grid place-content-center px-4">
+                          <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              class="size-4 text-gray-400"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
+                          >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"
+                            />
+                          </svg>
+                        </span>
+                    </div>
+
+                </div>
+                <div id="email-warning" class="warning"></div>
+                <br/>
+            </div>
+
+            <div>
+                <label for="password" class="sr-only">Password</label>
+                <div class="relative">
+                    <p data-i18n="identifier_page.password"></p>
+                    <div class="bg-white rounded-lg">
+                        <input
+                            id="password"
+                            type="password"
+                            class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-xs text-black"
+                        />
+
+                        <span class="absolute inset-y-0 end-0 grid place-content-center px-4">
                   <svg
                       xmlns="http://www.w3.org/2000/svg"
                       class="size-4 text-gray-400"
@@ -136,31 +195,37 @@
                     />
                   </svg>
                 </span>
-            </div>
-            <div id="password-warning" class="warning"></div><br />
-        </div>
+                    </div>
 
-        <div class="flex items-center justify-between">
-            <div class="flex flex-row text-sm text-gray-500">
-                <p data-i18n="identifier_page.no-account">
-                </p>
-                <a
-                    data-i18n="identifier_page.sign-up"
-                    class="underline"
-                    href="#"></a>
+                </div>
+                <div id="password-warning" class="warning"></div>
+                <br/>
             </div>
 
-            <button
-                id="submitBtn"
-                disabled
-                type="submit"
-                class="inline-block rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white disabled:bg-gray-300 disabled:cursor-not-allowed"
-                data-i18n="identifier_page.sign-in"
-            >
-            </button>
-        </div>
-    </form>
-</div>
+            <div class="flex items-center justify-between flex-wrap px-3">
+                <div class="flex flex-row text-sm text-gray-500">
+                    <p data-i18n="identifier_page.no-account">
+                    </p>
+                    <a
+                        data-i18n="identifier_page.sign-up"
+                        class="underline"
+                        href="#"></a>
+                </div>
+
+                <button
+                    id="submitBtn"
+                    disabled
+                    type="submit"
+                    class="inline-block rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white disabled:bg-gray-300 disabled:cursor-not-allowed"
+                    data-i18n="identifier_page.sign-in"
+                >
+                </button>
+            </div>
+        </form>
+    </div>
+</main>
+<script src="../../public/assets/js/jquery-3.4.1.min.js"></script>
+<script src="../../public/assets/js/bootstrap.js"></script>
 <script src="/app/services/translation.js"></script>
 <script src="/app/services/identifer.js"></script>
 </body>
