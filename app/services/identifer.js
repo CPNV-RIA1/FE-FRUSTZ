@@ -62,5 +62,7 @@ document.getElementById("login-form").addEventListener("submit", function (e) {
 
     localStorage.setItem("loginAttempt", JSON.stringify({ email, password }));
 
-    window.location.href = "/index.html";
+    const baseUrl = window.location.href.replace(/\/app.*$/, "");
+
+    window.location.href = `${baseUrl}/index.html`;
 });
