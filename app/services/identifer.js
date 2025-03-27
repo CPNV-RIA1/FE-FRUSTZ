@@ -1,15 +1,13 @@
-// Sélection des éléments
 const emailInput = document.getElementById("email");
 const passwordInput = document.getElementById("password");
 const submitBtn = document.getElementById("submitBtn");
 const emailWarning = document.getElementById("email-warning");
 const passwordWarning = document.getElementById("password-warning");
 
-// Regex de validation
 const emailRegex = /^[\w.-]+@[\w.-]+\.\w{2,}$/;
-const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@.#$!%*?&])[A-Za-z\d@.#$!%*?&]{8,15}$/;
+const passwordRegex =
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@.#$!%*?&])[A-Za-z\d@.#$!%*?&]{8,15}$/;
 
-// Fonction principale
 function validateForm() {
     const email = emailInput.value.trim();
     const password = passwordInput.value.trim();
@@ -17,7 +15,6 @@ function validateForm() {
     const emailIsValid = emailRegex.test(email);
     const passwordIsValid = passwordRegex.test(password);
 
-    // Affichage des messages d'avertissement
     if (!emailIsValid && email !== "") {
         emailWarning.innerHTML = `
           ❌ L'adresse email doit respecter le format :
@@ -51,24 +48,21 @@ function validateForm() {
         passwordInput.classList.remove("invalid");
     }
 
-    // Activation du bouton
     submitBtn.disabled = !(emailIsValid && passwordIsValid);
 }
 
-// Écoute des champs en live
 emailInput.addEventListener("input", validateForm);
 passwordInput.addEventListener("input", validateForm);
 
-// Écoute si le formulaire est transmit
 document.getElementById("login-form").addEventListener("submit", function (e) {
     e.preventDefault();
 
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
 
-    // Enregistre les valeurs en localStorage
-    localStorage.setItem("loginAttempt", JSON.stringify({email, password}));
+    localStorage.setItem("loginAttempt", JSON.stringify({ email, password }));
 
-    // Redirige vers l’index
-    window.location.href = "/index.html";
+    const baseUrl = window.location.href.replace(/\/app.*$/, "");
+
+    window.location.href = `${baseUrl}/index.html`;
 });
