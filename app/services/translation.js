@@ -7,8 +7,10 @@ async function preloadTranslations() {
         (lng) => lng !== "cimode"
     );
 
+    const baseUrl = window.location.href.replace(/\/app.*|\/index\.html$/, "");
+
     const promises = supportedLngs.map((lang) =>
-        fetch(`/public/locales/${lang}.json`)
+        fetch(`${baseUrl}/public/locales/${lang}.json`)
             .then((response) => response.json())
             .then((data) => {
                 translationsCache[lang] = data;
