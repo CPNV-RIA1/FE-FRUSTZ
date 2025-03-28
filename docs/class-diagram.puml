@@ -4,9 +4,15 @@ note "Project: RIA1-FRUSTZ\nTitle: FRUSTZ Class Diagram\nAuthor: SCHNEIDER Julie
 
 package "Vue" {
     class Index {}
+    class Login {}
 }
 
 package "Domaine" {
+
+    class Identifier {
+            +validateForm(): void
+    }
+    
     class Translation {
         +i18next: I18Next
 
@@ -15,6 +21,13 @@ package "Domaine" {
         +applyTranslations(): void
         +changeLanguage(lang: String): void
     }
+    
+    class loginAttempt {
+        +userIdentifier(loginAttempt : String): String
+    }
+    
+    
+    
 
     class Locale {}
 }
@@ -32,7 +45,12 @@ package "Exceptions" {
 }
 
 ' Relations
+
 Index --> Translation : "Call"
+Index --> loginAttempt : "Call"
+Index - Login
+Login --> Translation : "Call"
+Login --> Identifier : "Call"
 Translation -> I18Next : "Use"
 Translation --> Locale : "Load"
 LanguageUnknowException -|> Error : "extends"
