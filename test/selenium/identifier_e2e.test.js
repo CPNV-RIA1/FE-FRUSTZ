@@ -1,5 +1,7 @@
 "use strict";
 
+jest.setTimeout(10000);
+
 const { Builder, By, Key, until } = require("selenium-webdriver");
 const chrome = require("selenium-webdriver/chrome");
 
@@ -65,7 +67,8 @@ test("identifier_NominalLanguage_ChangeNavigatorLanguage", async () => {
 
     // When: Je débute la saisie...
 
-    // TODO : Add content in the input
+    const emailInput = await driver.findElement(By.css("input[type='email']"));
+    await emailInput.sendKeys("user@example.com");
 
     // Then: la possiblité de modifier la langue (FR/ALL/ANG).
     let selectElement = await driver.findElement(By.id("languageSelector"));
@@ -78,7 +81,9 @@ test("identifier_NominalLanguage_ChangeNavigatorLanguage", async () => {
 
     expect(newLang).not.toEqual(defaultNavigatorLng);
 
-    // TODO : assert that the input content hasn't been changed
+    const emailValue = await emailInput.getAttribute("value");
+
+    expect(emailValue).toEqual("user@example.com");
 });
 
 test("identifier_SubmitButtonEnabled_WhenPasswordAndEmailEntered", async () => {
