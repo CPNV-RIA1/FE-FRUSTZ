@@ -25,7 +25,7 @@
     },
     "identifier_page": {
         "title": "Login",
-        "description": "Page of authentification !",
+        "description": "Page of authentication !",
         "email": "Enter email",
         "password": "Enter password",
         "no-account": "No account ?",
