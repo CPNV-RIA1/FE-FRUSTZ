@@ -110,22 +110,14 @@ git flow init
 5. Run JS dev server
 
 ```bash
-npm run dev
+npm start
 ```
 
 #### How to run the tests?
-
-1. JEST
-
 ```bash
-npm run test
+npm test
 ```
 
-2. Selenium e2e
-
-```bash
-npm run test:selenium
-```
 
 ## Directory structure
 
@@ -133,22 +125,39 @@ npm run test:selenium
 ./Neogym
 ├── app
 │   ├── controllers
+│   ├── exceptions
 │   ├── models
+│   ├── services
+│   │   ├── identifier.js
+│   │   ├── loginAttempt.js
+│   │   └── translation.js
 │   └── views
 │       ├── contact.html
+│       ├── identifier.html
 │       ├── trainer.html
 │       └── why.html
 ├── config
+├── coverage
 ├── database
 ├── docs
+│   ├── ClassDiagram.png
+│   ├── UseCase.asta
+│   ├── UseCaseDiagram.png
+│   ├── class-diagram.puml
+│   ├── diagram-class.md
+│   └── selenium.md
 ├── index.html
+├── package-lock.json
+├── package.json
 ├── public
-│   └── assets
-│       ├── css
-│       ├── images
-│       └── js
-├── README.md
+│   ├── assets
+│   │   ├── css
+│   │   ├── images
+│   │   └── js
+│   └── locales
 └── test
+    ├── jest
+    └── selenium
 ```
 
 ## Collaborate
