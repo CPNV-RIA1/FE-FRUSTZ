@@ -3,30 +3,30 @@
 
 <head>
     <!-- Basic -->
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <!-- Mobile Metas -->
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <!-- Site Metas -->
-    <meta name="keywords" content="" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
 
     <title>Neogym</title>
 
     <!-- slider stylesheet -->
     <link rel="stylesheet" type="text/css"
-        href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+          href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"/>
 
     <!-- bootstrap core css -->
-    <link rel="stylesheet" type="text/css" href="../../public/assets/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="../../public/assets/css/bootstrap.css"/>
 
     <!-- fonts style -->
-    <link href="https://fonts.googleapis.com/css?family=Poppins:400,600,700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,600,700&display=swap" rel="stylesheet"/>
     <!-- Custom styles for this template -->
-    <link href="../../public/assets/css/style.css" rel="stylesheet" />
+    <link href="../../public/assets/css/style.css" rel="stylesheet"/>
     <!-- responsive style -->
-    <link href="../../public/assets/css/responsive.css" rel="stylesheet" />
+    <link href="../../public/assets/css/responsive.css" rel="stylesheet"/>
 
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <script src="https://unpkg.com/i18next@21.6.3/i18next.min.js"></script>
@@ -44,20 +44,8 @@
                 <option value="fr">FR</option>
                 <option value="de">DE</option>
             </select>
-            <button 
-                class="navbar-toggler" 
-                type="button" 
-                data-toggle="collapse"
-                data-target="#navbarSupportedContent" 
-                aria-controls="navbarSupportedContent"
-                aria-expanded="false" aria-label="Toggle navigation">
-                
-                <span class="navbar-toggler-icon"></span>
-            </button>
         </nav>
     </div>
-        
-
 </header>
 
 <main class="bg-[#2b2f5d80] min-h-screen text-[#FFFFFF]">
@@ -77,54 +65,41 @@
                 <div class="relative">
                     <p data-i18n="identifier_page.email"></p>
 
-                <div class="bg-white rounded-lg">
-                    <input id="email" type="email"
-                        class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-xs" />
-
-                    <span class="absolute inset-y-0 end-0 grid place-content-center px-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="size-4 text-gray-400" fill="none"
-                            viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
-                        </svg>
-                    </span>
-                </div>
-                <div id="email-warning" class="warning"></div><br />
-            </div>
-
-            <div>
-                <label for="password" class="sr-only">Password</label>
-                <div class="relative">
-                    <p data-i18n="identifier_page.password"></p>
                     <div class="bg-white rounded-lg">
-                        <input id="password" type="password"
-                            class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-xs" />
-    
+                        <input id="email" type="email"
+                               class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-xs text-black"/>
+
                         <span class="absolute inset-y-0 end-0 grid place-content-center px-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="size-4 text-gray-400" fill="none"
-                                viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                            </svg>
-                        </span>
+                    </span>
                     </div>
-                </div>
-                <div id="password-warning" class="warning"></div><br />
-            </div>
-            
-            <div class="flex items-center justify-between flex-wrap px-3">
-                <div class="flex flex-row text-sm text-gray-500">
-                    <p data-i18n="identifier_page.no-account">
-                    </p>
-                    <a data-i18n="identifier_page.sign-up" class="underline" href="#"></a>
+                    <div id="email-warning" class="warning"></div>
+                    <br/>
                 </div>
 
-                <button id="submitBtn" disabled type="submit"
-                    class="inline-block rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white disabled:bg-gray-300 disabled:cursor-not-allowed"
-                    data-i18n="identifier_page.sign-in">
-                </button>
+                <div>
+                    <label for="password" class="sr-only">Password</label>
+                    <div class="relative">
+                        <p data-i18n="identifier_page.password"></p>
+                        <div class="bg-white rounded-lg">
+                            <input id="password" type="password"
+                                   class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-xs text-black"/>
+                        </div>
+                    </div>
+                    <div id="password-warning" class="warning"></div>
+                    <br/>
+                </div>
+
+                <div class="flex items-center justify-between flex-wrap px-3">
+                    <div class="flex flex-row text-sm text-gray-500">
+                        <p class="p-1" data-i18n="identifier_page.no-account">
+                        </p>
+                        <a data-i18n="identifier_page.sign-up" class="underline p-1" href="#"></a>
+                    </div>
+
+                    <button id="submitBtn" disabled type="submit"
+                            class="inline-block rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white disabled:bg-gray-300 disabled:cursor-not-allowed"
+                            data-i18n="identifier_page.sign-in">
+                    </button>
                 </div>
             </div>
         </form>
